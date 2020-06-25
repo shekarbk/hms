@@ -1,0 +1,58 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<form>
+    <p class="h2 mb-4 text-center">View Appointments</p>
+    <div class="form-group row">
+        <label for="text" class="col-2 col-form-label">Select Date</label>
+        <div class="col-8">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-calendar-check-o"></i>
+                    </div>
+                </div>
+                <input id="text" name="text" type="text" class="form-control">
+                <button>Search</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Time Slot</th>
+                    <th scope="col">Patient Id</th>
+                    <th scope="col">Patient Name</th>
+                    <th scope="col">Treatment For</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>9:00</td>
+                    <td> <a routerLink="/history">100</a></td>
+                    <td>Shiva</td>
+                    <td>Diabets</td>
+                </tr>
+                <tr>
+                    <td>10:00</td>
+                    <td>101</td>
+                    <td>Raji</td>
+                    <td>Tooth pain</td>
+                </tr>
+                <tr>
+                    <td>11:00</td>
+                    <td>200</td>
+                    <td>Rashu</td>
+                    <td>Cold & Fever</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- <div class="form-group row">
+        <div class="offset-4 col-8">
+            <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div> -->
+</form>

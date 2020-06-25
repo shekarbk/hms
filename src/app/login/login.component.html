@@ -1,0 +1,45 @@
+<div *ngIf="alert" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Failed!</strong> Please try again.
+    <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form [formGroup]="loginHms" class="border border-light p-5" (ngSubmit)="collectLogin()">
+    <div [ngStyle]="{backgroundImage:'url(./assets/images/dr_appointment.jpg)'}">
+        <p class="h2 mb-4 text-center">Welcome to Hospital Managment System</p>
+        <p class="h4 mb-4 text-center">Sign in</p>
+    </div>
+    <input type="email" formControlName="email" id="defaultLoginFormEmail" class="form-control mb-4"
+        placeholder="E-mail">
+
+    <input type="password" formControlName="password" id="defaultLoginFormPassword" class="form-control mb-4"
+        placeholder="Password">
+
+
+    <select id="select" name="select" class="custom-select" formControlName="loginType">
+        <option value="">Login Type</option>
+        <option value="admin">Admin</option>
+        <option value="doctor">Doctor</option>
+        <option value="patient">Patient</option>
+    </select>
+
+    <!-- <div class="d-flex justify-content-between">
+        <div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
+                <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+            </div>
+        </div>
+        <div>
+            <a href="">Forgot password?</a>
+        </div>
+    </div> -->
+
+    <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+
+    <div class="text-center">
+        <p>Not a member?
+            <a routerLink="/register">Register</a>
+        </p>
+    </div>
+</form>

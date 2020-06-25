@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'hms';
+  isNavEnable = "disabled";
+  isLoginNavEnable = "enabled";
+
+  logout() {
+    this.isNavEnable = "disabled";
+    this.isLoginNavEnable = "enabled";
+  }
 }
