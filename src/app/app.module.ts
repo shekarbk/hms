@@ -21,6 +21,8 @@ import { ContactusComponent } from './contactus/contactus.component';
 import { EditAppointmentComponent } from './edit-appointment/edit-appointment.component';
 import { BookingHistoryComponent } from './booking-history/booking-history.component';
 import { PatientsReportComponent } from './patients-report/patients-report.component';
+import { DoctorsReportComponent } from './doctors-report/doctors-report.component';
+import { EditRegistrationComponent } from './edit-registration/edit-registration.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { PatientsReportComponent } from './patients-report/patients-report.compo
     ContactusComponent,
     EditAppointmentComponent,
     BookingHistoryComponent,
-    PatientsReportComponent
+    PatientsReportComponent,
+    DoctorsReportComponent,
+    EditRegistrationComponent
   ],
   imports: [
     BrowserModule,

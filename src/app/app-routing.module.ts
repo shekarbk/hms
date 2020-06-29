@@ -13,6 +13,8 @@ import { ContactusComponent } from './contactus/contactus.component';
 import { EditAppointmentComponent } from './edit-appointment/edit-appointment.component';
 import { BookingHistoryComponent } from './booking-history/booking-history.component';
 import { PatientsReportComponent } from './patients-report/patients-report.component';
+import { DoctorsReportComponent } from './doctors-report/doctors-report.component';
+import {EditRegistrationComponent} from './edit-registration/edit-registration.component';
 
 const routes: Routes = [
   {
@@ -54,6 +56,12 @@ const routes: Routes = [
   }, {
     path: 'patientsReport',
     component: PatientsReportComponent
+  }, {
+    path: 'doctorsReport',
+    component: DoctorsReportComponent
+  },{
+    path: 'editRegistration/:id',
+    component: EditRegistrationComponent
   }
 ];
 

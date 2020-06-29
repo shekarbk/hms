@@ -124,7 +124,7 @@ export class RegisterComponent implements OnInit {
   }
 
   handleCancel() {
-    console.log("cancel clicked");
+    // console.log("cancel clicked");
     this.registerHms.reset({});
   }
 

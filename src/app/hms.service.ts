@@ -25,6 +25,10 @@ export class HmsService {
     return this.httpInstance.get(`${this.rootUrl}registration/?id=${id}`);
   }
 
+  deleteRegistrationDetails(id) {
+    return this.httpInstance.delete(`${this.rootUrl}registration/${id}`);
+  }
+  
   createProfile(data) {
     return this.httpInstance.post(this.rootUrl + "profile", data);
   }
@@ -33,8 +37,8 @@ export class HmsService {
 
   }
 
-  deleteProfile() {
-
+  deleteProfile(id) {
+    return this.httpInstance.delete(`${this.rootUrl}profile/${id}`);
   }
 
   saveAppointment() {
