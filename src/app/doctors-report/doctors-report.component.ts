@@ -8,6 +8,8 @@ import { HmsService } from '../hms.service';
 })
 export class DoctorsReportComponent implements OnInit {
   doctorProfileDetails;
+  isRegistraionDeleted = false;
+  alert = false;
 
   constructor(private hmsService: HmsService) { }
 
@@ -18,8 +20,24 @@ export class DoctorsReportComponent implements OnInit {
 
   getDoctorsDetails() {
     this.hmsService.getAllProfileDetails("doctor").subscribe((result) => {
-      console.log(result);
+      // console.log(result);
       this.doctorProfileDetails = result;
     });
+  }
+
+  deleteProfile(id) {
+    // console.log('delete profile for : ' + id);
+    this.hmsService.deleteRegistrationDetails(id).subscribe((result) => {
+      // console.log(result);
+      this.hmsService.deleteProfile(id).subscribe((result_Profile) => {
+        // console.log(result_Profile);
+        this.getDoctorsDetails();
+        this.isRegistraionDeleted = true;
+      });
+    });
+  }
+
+  closeAlert(){
+    this.alert = true;
   }
 }

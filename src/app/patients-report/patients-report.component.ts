@@ -14,6 +14,7 @@ export class PatientsReportComponent implements OnInit {
   constructor(private hmsService: HmsService) { }
 
   ngOnInit(): void {
+    // console.log("loginedUserRole: "+localStorage.getItem("loginedUserRole"));
     this.getPatientDetails();
   }
 

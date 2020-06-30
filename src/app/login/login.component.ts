@@ -40,11 +40,13 @@ export class LoginComponent implements OnInit {
         this.isLoginSuccess = true;
         this.appInstance.isNavEnable = "enabled";
         this.appInstance.isLoginNavEnable = "disabled";
+        localStorage.setItem("loginedUserRole",result[0].role);
       }
       // console.log(this.isLoginSuccess);
       if (this.isLoginSuccess && result[0].role == "admin") {
         this.router.navigate(['viewAppointment']); //navigate to view appointment page
       } if (this.isLoginSuccess && result[0].role == "doctor") {
+        
         this.router.navigate(['viewAppointment']); //navigate to view appointment page
       } if (this.isLoginSuccess && result[0].role == "patient") {
         this.router.navigate(['register']); //navigate to view appointment page

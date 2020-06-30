@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class EditRegistrationComponent implements OnInit {
 
   isRegistrationUpdated = false;
+  loginedUserRole;
   alert = false;
   registerHms = new FormGroup({
     firstName: new FormControl(),
@@ -31,11 +32,16 @@ export class EditRegistrationComponent implements OnInit {
   constructor(private hmsService: HmsService, private activatedRouter: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    this.loginedUserRole = localStorage.getItem("loginedUserRole");
     this.searchRegId(this.activatedRouter.snapshot.params.id);
   }
 
   handleCancel() {
-    this.router.navigate(['patientsReport']);
+    if (this.loginedUserRole === "patient") {
+      this.router.navigate(['patientsReport']);
+    } else if (this.loginedUserRole === "doctor") {
+      this.router.navigate(['doctorsReport']);
+    }
   }
 
   updateRegistration() {
@@ -52,17 +58,17 @@ export class EditRegistrationComponent implements OnInit {
   searchRegId(id) {
     this.hmsService.getRegistrationDetails(id).subscribe((result) => {
       // console.log(result);
-        this.registerHms = new FormGroup({
-          firstName: new FormControl(result[0]['firstName']),
-          lastName: new FormControl(result[0]['lastName']),
-          sex: new FormControl(result[0]['sex']),
-          age: new FormControl(result[0]['age']),
-          email: new FormControl(result[0]['email']),
-          password: new FormControl(result[0]['password']),
-          address: new FormControl(result[0]['address']),
-          existingDiseases: new FormControl(result[0]['existingDiseases']),
-          role: new FormControl(result[0]['role'])
-        });      
+      this.registerHms = new FormGroup({
+        firstName: new FormControl(result[0]['firstName']),
+        lastName: new FormControl(result[0]['lastName']),
+        sex: new FormControl(result[0]['sex']),
+        age: new FormControl(result[0]['age']),
+        email: new FormControl(result[0]['email']),
+        password: new FormControl(result[0]['password']),
+        address: new FormControl(result[0]['address']),
+        existingDiseases: new FormControl(result[0]['existingDiseases']),
+        role: new FormControl(result[0]['role'])
+      });
     });
   }
 }
