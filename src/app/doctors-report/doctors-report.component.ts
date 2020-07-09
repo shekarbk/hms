@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HmsService } from '../hms.service';
+import{ GlobalConstants } from '../../app/common/global-constants';
 
 @Component({
   selector: 'app-doctors-report',
@@ -10,11 +11,14 @@ export class DoctorsReportComponent implements OnInit {
   doctorProfileDetails;
   isRegistraionDeleted = false;
   alert = false;
+  loginedUserRole;
+  adminRoleType = GlobalConstants.adminRole;
 
   constructor(private hmsService: HmsService) { }
 
 
   ngOnInit(): void {
+    this.loginedUserRole = localStorage.getItem("loginedUserRole");
     this.getDoctorsDetails();
   }
 

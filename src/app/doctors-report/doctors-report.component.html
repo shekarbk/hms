@@ -26,7 +26,9 @@
                     <th scope="col">Qualification</th>
                     <th scope="col">Specialization</th>
                     <th scope="col">Experience</th>
-                    <th scope="col">Action</th>
+                    <div *ngIf="loginedUserRole === adminRoleType">
+                        <th scope="col">Action</th>
+                    </div>
                 </tr>
             </thead>
             <tbody>
@@ -42,10 +44,12 @@
                     <td>{{x.qualification}}</td>
                     <td>{{x.specialization}}</td>
                     <td>{{x.yearOfExp}}</td>
-                    <td class="col-sm-2"><i (click)="deleteProfile(x.id)" class="fa fa-trash"
-                            style="font-size:20px;color:red;"></i>
-                        &nbsp;&nbsp;&nbsp;<i routerLink="/editRegistration/{{x.id}}" class="fa fa-edit"
-                            style="font-size:20px;color:green;"></i></td>
+                    <div *ngIf="loginedUserRole === adminRoleType">
+                        <td class="col-sm-2"><i (click)="deleteProfile(x.id)" class="fa fa-trash"
+                                style="font-size:20px;color:red;"></i>
+                            &nbsp;&nbsp;&nbsp;<i routerLink="/editRegistration/{{x.id}}" class="fa fa-edit"
+                                style="font-size:20px;color:green;"></i></td>
+                    </div>
                 </tr>
             </tbody>
         </table>

@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HmsService } from '../hms.service';
 import { AppComponent } from '../app.component';
+import{ GlobalConstants } from '../../app/common/global-constants';
 
 @Component({
   selector: 'app-login',
@@ -30,25 +31,32 @@ export class LoginComponent implements OnInit {
     // console.log("role: " + this.loginHms.value.loginType);
 
     this.hmsService.getLoginUserDetails(this.loginHms.value.email, this.loginHms.value.password, this.loginHms.value.loginType).subscribe((result) => {
-      // console.log("1111: " + result);
 
       if (Object.keys(result).length == 0) {
         this.isLoginSuccess = false;
         this.appInstance.isNavEnable = "disabled";
         this.appInstance.isLoginNavEnable = "enabled";
+        this.appInstance.isRegistrationTabEnable = "enabled";
       } else if (result[0].email != "" && result[0].password != "") {
         this.isLoginSuccess = true;
         this.appInstance.isNavEnable = "enabled";
         this.appInstance.isLoginNavEnable = "disabled";
         localStorage.setItem("loginedUserRole",result[0].role);
+        localStorage.setItem("loginedUserId",result[0].email);
       }
       // console.log(this.isLoginSuccess);
-      if (this.isLoginSuccess && result[0].role == "admin") {
+      // console.log("#### "+result[0].role);
+      if (this.isLoginSuccess && result[0].role == GlobalConstants.adminRole) {
         this.router.navigate(['viewAppointment']); //navigate to view appointment page
-      } if (this.isLoginSuccess && result[0].role == "doctor") {
-        
+        this.appInstance.isNavEnable = "enabled";
+        this.appInstance.isRegistrationTabEnable = "enabled";
+      } if (this.isLoginSuccess && result[0].role == GlobalConstants.doctorRole) {
+        this.appInstance.isNavEnable = "enabled";
+        this.appInstance.isRegistrationTabEnable = "disabled";
         this.router.navigate(['viewAppointment']); //navigate to view appointment page
-      } if (this.isLoginSuccess && result[0].role == "patient") {
+      } if (this.isLoginSuccess && result[0].role == GlobalConstants.patientRole) {
+        this.appInstance.isNavEnable = "enabled";
+        this.appInstance.isRegistrationTabEnable = "enabled";
         this.router.navigate(['register']); //navigate to view appointment page
       } else {
         this.alert = true;
