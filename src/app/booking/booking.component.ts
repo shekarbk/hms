@@ -29,6 +29,9 @@ export class BookingComponent implements OnInit {
   bookedDate;
   bookedTreatmentType;
   bookingConfirmationDetails;
+  logedInUserRole;
+  logedInUserId;
+  setReadyOnlyFlag = false;
 
   bookingHms = new FormGroup({
     registrationId: new FormControl(),
@@ -48,8 +51,15 @@ export class BookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.removeDocument("10:00");
-    // console.log(this.completeTimeSlot);
+    this.logedInUserRole = localStorage.getItem("loginedUserRole");
+    this.logedInUserId = localStorage.getItem("logedInUserId");
+    if(this.logedInUserRole === 'admin'){
+      this.setReadyOnlyFlag = false;
+    } else if(this.logedInUserRole === 'patient'){
+      this.setReadyOnlyFlag = true;
+      // console.log("regId: "+localStorage.getItem("logedInUserRegistrationId"));
+      this.inputRegistrationId = localStorage.getItem("logedInUserRegistrationId");
+    }
   }
 
   searchRegId(id) {

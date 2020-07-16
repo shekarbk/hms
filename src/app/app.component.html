@@ -13,11 +13,12 @@
 
     <!-- Dropdown -->
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle {{isNavEnable}}" href="#" (click)="handleMenuClickEvent()" id="navbardrop" data-toggle="dropdown">
-      <!-- <a class="nav-link dropdown-toggle " href="#" id="navbardrop" data-toggle="dropdown"> -->
+      <a class="nav-link dropdown-toggle {{isNavEnable}}" href="#" (click)="handleMenuClickEvent()" id="navbardrop"
+        data-toggle="dropdown">
+        <!-- <a class="nav-link dropdown-toggle " href="#" id="navbardrop" data-toggle="dropdown"> -->
         Reports
       </a>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">        
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
         <div *ngIf="loginedUserRole === adminRoleType">
           <a class="dropdown-item" routerLink="bookingHistory">Booking History</a>
           <a class="dropdown-item" routerLink="patientsReport">Patients Details</a>
@@ -27,6 +28,7 @@
           <a class="dropdown-item" routerLink="doctorsReport">Doctors Details</a>
         </div>
         <div *ngIf="loginedUserRole === patientRoleType">
+          <a class="dropdown-item" routerLink="doctorsReport">Doctors Details</a>
           <a class="dropdown-item" routerLink="patientsReport">Patients Details</a>
         </div>
       </div>

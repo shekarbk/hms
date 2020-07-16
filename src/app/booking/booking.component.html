@@ -29,7 +29,7 @@
                         <i class="fa fa-address-card"></i>
                     </div>
                 </div>
-                <input id="text" name="text" type="text" placeholder="Patient Id" class="form-control" [(ngModel)]="inputRegistrationId">
+                <input id="text" name="text" type="text" [readonly]="setReadyOnlyFlag" placeholder="Patient Id" class="form-control" [(ngModel)]="inputRegistrationId">
                 <button class="btn btn-info" (click)="searchRegId(inputRegistrationId)">Search</button>
             </div>
         </div>

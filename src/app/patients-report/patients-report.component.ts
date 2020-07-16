@@ -11,22 +11,33 @@ export class PatientsReportComponent implements OnInit {
   patientProfileDetails;
   isRegistraionDeleted = false;
   alert = false;
-  loginedUserRole;
+  logedInUserRole;
   adminRoleType = GlobalConstants.adminRole;
+  logedInUserId;
 
   constructor(private hmsService: HmsService) { }
 
   ngOnInit(): void {
     // console.log("loginedUserRole: "+localStorage.getItem("loginedUserRole"));
-    this.loginedUserRole = localStorage.getItem("loginedUserRole");
+    this.logedInUserRole = localStorage.getItem("loginedUserRole");
+    this.logedInUserId = localStorage.getItem("logedInUserId");
+
     this.getPatientDetails();
   }
 
   getPatientDetails() {
-    this.hmsService.getAllProfileDetails("patient").subscribe((result) => {
-      // console.log(result);
-      this.patientProfileDetails = result;
-    });
+    if(this.logedInUserRole === 'admin'){
+      this.hmsService.getAllProfileDetails("patient").subscribe((result) => {
+        // console.log(result);
+        this.patientProfileDetails = result;
+      });
+    } else if(this.logedInUserRole === 'patient'){
+      this.hmsService.getSpecificProfileDetails(this.logedInUserId).subscribe((result) => {
+        // console.log(result);
+        this.patientProfileDetails = result;
+      });
+    }
+    
   }
 
   deleteProfile(id) {

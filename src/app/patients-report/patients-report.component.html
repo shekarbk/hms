@@ -23,7 +23,7 @@
                     <th scope="col">Email</th>
                     <th scope="col">Address</th>
                     <th scope="col">ExistingDiseases</th>
-                    <div *ngIf="loginedUserRole === adminRoleType">
+                    <div *ngIf="logedInUserRole === adminRoleType">
                         <th scope="col">Action</th>
                     </div>
                 </tr>
@@ -38,7 +38,7 @@
                     <td>{{x.email}}</td>
                     <td>{{x.address}}</td>
                     <td>{{x.existingDiseases}}</td>
-                    <div *ngIf="loginedUserRole === adminRoleType">
+                    <div *ngIf="logedInUserRole === adminRoleType">
                         <td class="col-sm-2"><i (click)="deleteProfile(x.id)" class="fa fa-trash"
                                 style="font-size:20px;color:red;"></i>
                             &nbsp;&nbsp;&nbsp;<i routerLink="/editRegistration/{{x.id}}" class="fa fa-edit"

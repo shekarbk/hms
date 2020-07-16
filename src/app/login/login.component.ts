@@ -41,8 +41,16 @@ export class LoginComponent implements OnInit {
         this.isLoginSuccess = true;
         this.appInstance.isNavEnable = "enabled";
         this.appInstance.isLoginNavEnable = "disabled";
+
+        //store the data in the browser session
         localStorage.setItem("loginedUserRole",result[0].role);
-        localStorage.setItem("loginedUserId",result[0].email);
+        localStorage.setItem("logedInUserId",result[0].email);
+        
+
+        this.hmsService.getSpecificProfileDetails(result[0].email).subscribe((rst) => {
+          // console.log(rst[0].id);
+          localStorage.setItem("logedInUserRegistrationId",rst[0].id);
+        });
       }
       // console.log(this.isLoginSuccess);
       // console.log("#### "+result[0].role);
@@ -56,8 +64,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['viewAppointment']); //navigate to view appointment page
       } if (this.isLoginSuccess && result[0].role == GlobalConstants.patientRole) {
         this.appInstance.isNavEnable = "enabled";
-        this.appInstance.isRegistrationTabEnable = "enabled";
-        this.router.navigate(['register']); //navigate to view appointment page
+        this.appInstance.isRegistrationTabEnable = "disabled";
+        this.router.navigate(['viewAppointment']); //navigate to view appointment page
       } else {
         this.alert = true;
       }

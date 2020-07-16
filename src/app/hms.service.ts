@@ -100,4 +100,8 @@ export class HmsService {
   getAllProfileDetails(role) {
     return this.httpInstance.get(`${this.rootUrl}registration/?role=${role}`);
   }
+
+  getSpecificProfileDetails(emailId){
+    return this.httpInstance.get(`${this.rootUrl}registration/?email=${emailId}`);
+  }
 } 
