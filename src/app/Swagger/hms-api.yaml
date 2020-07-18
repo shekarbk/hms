@@ -1,0 +1,534 @@
+swagger: "2.0"
+info:
+  description: "API details for Hospital Managment System (HMS)"
+  version: "1.0.0"
+  title: "Swagger for HMS"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "chandra@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+basePath: "/v1"
+tags:
+- name: "profile"
+  description: "Login user details"
+- name: "registration"
+  description: "To register new users (patient, doctor, admin)"
+- name: "booking"
+  description: "For new booking"
+- name: "contact"
+  description: "Access to contact details"
+schemes:
+- "https"
+- "http"
+paths:
+  /profile:
+    get:
+      tags:
+      - "profile"
+      summary: "Find profile details by passing emailId,password,role"
+      description: "Returns a single profile"
+      operationId: "getProfile"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "email"
+        description: "profile email"
+        required: true
+        type: "string"
+      - in: "query"
+        name: "password"
+        description: "profile password"
+        required: true
+        type: "string"
+      - in: "query"
+        name: "role"
+        description: "profile role"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/profile"
+        "400":
+          description: "Invalid details supplied"
+        "404":
+          description: "profile not found"
+    post:
+      tags:
+        - "profile"
+      summary: "add new profile"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "add new profile"
+        required: true
+        schema:
+          $ref: "#/definitions/profile"
+      responses:
+        200:
+          description: OK
+    
+  /profile/:
+    get:
+      tags:
+      - "profile"
+      summary: "Find profile details by passing role"
+      description: "Returns a list of profile"
+      operationId: "getAllProfileDetails"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "role"
+        description: "pass role details like Admin, Patient, Doctor"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/profile"
+        "400":
+          description: "Invalid details supplied"
+        "404":
+          description: "profile not found"
+  
+  /profile/{profileId}:
+    put:
+      tags:
+        - "profile"
+      summary: "update profile"
+      description: "update profile details"
+      parameters:
+      - in: "path"
+        name: "profileId"
+        type: "number"
+        description: "profile id to update"
+        required: true
+      - in: "body"
+        name: "body"
+        description: "update profile details"
+        required: true
+        schema:
+          $ref: "#/definitions/profile"
+      responses:
+        200:
+          description: OK
+    delete:
+      tags:
+      - "profile"
+      summary: "delete profile"
+      description: "to delete booking"
+      parameters:
+      - in: "path"
+        name: "profileId"
+        type: "number"
+        description: "delete profile"
+        required: true
+      responses:
+        200:
+          description: OK  
+          
+  /registration:
+    post:
+      tags:
+      - "registration"
+      summary: "create user"
+      description: "register the new user"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create user object"
+        required: true
+        schema:
+          $ref: "#/definitions/registration"
+      responses:
+        200:
+          description: OK
+    
+    get:
+      tags:
+      - "registration"
+      summary: "Find booking details by passing registraionId"
+      description: "Returns perticular registration details"
+      operationId: "getRegistraionDetails"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "doctorId"
+        description: "doctorId"
+        required: true
+        type: "string"
+      - in: "query"
+        name: "Date"
+        description: "any specific date"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/booking"
+        "400":
+          description: "Invalid details supplied"
+        "404":
+          description: "booking details not found"
+ 
+  /registration{registrationId}:
+    put:
+      tags:
+      - "registration"
+      summary: "update user"
+      description: "update specified user"
+      parameters:
+      - in: "path"
+        name: "registrationId"
+        type: "number"
+        description: "registation id to update"
+        required: true
+      - in: "body"
+        name: "body"
+        description: "update registration details"
+        required: true
+        schema:
+          $ref: "#/definitions/registration"
+      responses:
+        200:
+          description: OK
+  
+  /registration/:
+    get:
+      tags:
+      - "registration"
+      summary: "Find registration details by passing role"
+      description: "Returns a list of registration details"
+      operationId: "getAllRegistrationDetails"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "role"
+        description: "pass role details like Admin, Patient, Doctor"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/registration"
+        "400":
+          description: "Invalid details supplied"
+        "404":
+          description: "registration not found"
+  
+  /registration/email:
+    get:
+      tags:
+      - "registration"
+      summary: "Find registration details by passing email id"
+      description: "Returns a registration details"
+      operationId: "getSpecificProfileDetails"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "role"
+        description: "pass email id"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/registration"
+        "400":
+          description: "Invalid details supplied"
+        "404":
+          description: "registration not found"
+          
+  /booking:
+    get:
+      tags:
+      - "booking"
+      summary: "Find booking details by passing doctorId, Date"
+      description: "Returns a list of appointment details"
+      operationId: "getBookingDetails"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "doctorId"
+        description: "doctorId"
+        required: true
+        type: "string"
+      - in: "query"
+        name: "Date"
+        description: "any specific date"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/booking"
+        "400":
+          description: "Invalid details supplied"
+        "404":
+          description: "booking details not found"
+    post:
+      tags:
+      - "booking"
+      summary: "new booking" 
+      description: "book an appointment"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "new booking"
+        required: true
+        schema:
+          $ref: "#/definitions/booking"
+      responses:
+        200:
+          description: OK
+  
+  /booking{bookingId}:
+    delete:
+      tags:
+      - "booking"
+      summary: "delete booking"
+      description: "to delete booking"
+      parameters:
+      - in: "path"
+        name: "bookingId"
+        type: "number"
+        description: "cancel booking"
+        required: true
+      responses:
+        200:
+          description: OK
+  
+  /booking/id:
+    get:
+      tags:
+      - "booking"
+      summary: "Find booking details by passing bookingId"
+      description: "Returns booking details"
+      operationId: "getBookingSummaryDetails"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "bookingId"
+        description: "bookingId"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/booking"
+        "400":
+          description: "Invalid details supplied"
+        "404":
+          description: "booking details not found"
+    put:
+      tags:
+      - "booking"
+      summary: "update booking details"
+      description: "update booking details"
+      parameters:
+      - in: "query"
+        name: "bookingId"
+        type: "number"
+        description: "booking id to update"
+        required: true
+      - in: "body"
+        name: "body"
+        description: "update booking details"
+        required: true
+        schema:
+          $ref: "#/definitions/booking"
+      responses:
+        200:
+          description: OK  
+  
+  /booking/date:
+    get:
+      tags:
+      - "booking"
+      summary: "Find booking details for specified date"
+      description: "Returns booking details"
+      operationId: "getAppointmentDetails"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "Date"
+        description: "specified date"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/booking"
+        "400":
+          description: "Invalid details supplied"
+        "404":
+          description: "booking details not found"
+    
+  /contact:
+    get:
+      tags:
+        - "contact"
+      summary: "view contacts"
+      description: "get complete contact details"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/contact"
+        "400":
+          description: "Invalid details supplied"
+        "404":
+          description: "contact details not found"
+    put:
+      tags:
+        - "contact"
+      summary: "update contact"
+      description: "update contact details"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/contact"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "contact details not found"
+        "405":
+          description: "Validation exception"
+    post:
+      tags:
+        - "contact"
+      summary: "add contact"
+      description: "add new contact details"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/contact"
+      responses:
+        200:
+          description: OK
+    
+definitions:
+  profile:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+        description: "email Id"
+      password:
+        type: "string"
+        description: "password"
+      role:
+        type: "string"
+        description: "type of role"
+        enum: 
+        - "admin"
+        - "doctor"
+        - "patient"
+  
+  registration:
+    type: "object"
+    properties:
+      registrationId:
+        type: "number"
+        description: "registration Id"
+      firstName:
+        type: "string"
+        description: "first name"
+      lastName:
+        type: "string"
+        description: "last name"
+      sex:
+        type: "string"
+        description: "gender details"
+      age:
+        type: "integer"
+        description: "age"
+      email:
+        type: "string"
+        description: "email id"
+      address:
+        type: "string"
+        description: "address details"
+      existingDiseases:
+        type: "string"
+        description: "describe existing diseases"
+      role:
+        type: "string"
+        description: "describe role"
+  
+  booking:
+    type: "object"
+    properties:
+      date:
+        type: "string"
+        description: "booking date"
+      time:
+        type: "string"
+        description: "booking time"
+      doctorName:
+        type: "string"
+        description: "doctor name"
+      treatmentType:
+        type: "string"
+        description: "type of treatment"
+      purpose:
+        type: "string"
+        description: "purpose of visit"
+      patientId:
+        type: "number"
+        description: "patient id"
+        
+  contact:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "contact name"
+      phone:
+        type: "number"
+        description: "phone number"
+      email:
+        type: "string"
+        description: "email address"
+      address:
+        type: "string"
+        description: "address"
+      isBranch:
+        type: "boolean"
+        description: "is branch"
+      isSubbranch:
+        type: "boolean"
+        description: "is sub-branch"
+      isHeadOffice:
+        type: "boolean"
+        description: "is head office"
+        
+    
+      
+  

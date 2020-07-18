@@ -12,6 +12,18 @@ export class HmsService {
   getLoginUserDetails(email, pass, role) {
     return this.httpInstance.get(`${this.rootUrl}profile?email=${email}&password=${pass}&role=${role}`);
   }
+  
+  createProfile(data) {
+    return this.httpInstance.post(this.rootUrl + "profile", data);
+  }
+
+  updateProfile() {
+
+  }
+
+  deleteProfile(id) {
+    return this.httpInstance.delete(`${this.rootUrl}profile/${id}`);
+  }
 
   saveRegistration(data) {
     return this.httpInstance.post(this.rootUrl + "registration", data);
@@ -29,18 +41,7 @@ export class HmsService {
     return this.httpInstance.delete(`${this.rootUrl}registration/${id}`);
   }
   
-  createProfile(data) {
-    return this.httpInstance.post(this.rootUrl + "profile", data);
-  }
-
-  updateProfile() {
-
-  }
-
-  deleteProfile(id) {
-    return this.httpInstance.delete(`${this.rootUrl}profile/${id}`);
-  }
-
+  
   saveAppointment() {
 
   }
@@ -53,21 +54,21 @@ export class HmsService {
 
   }
 
-  getGeneralPhysician() {
-    return this.httpInstance.get(`${this.rootUrl}generalPhysician`);
-  }
+  // getGeneralPhysician() {
+  //   return this.httpInstance.get(`${this.rootUrl}generalPhysician`);
+  // }
 
-  getEnt() {
-    return this.httpInstance.get(`${this.rootUrl}ent`);
-  }
+  // getEnt() {
+  //   return this.httpInstance.get(`${this.rootUrl}ent`);
+  // }
 
-  getEyeSpecialist() {
-    return this.httpInstance.get(`${this.rootUrl}eyeSpecialist`);
-  }
+  // getEyeSpecialist() {
+  //   return this.httpInstance.get(`${this.rootUrl}eyeSpecialist`);
+  // }
 
-  getDental() {
-    return this.httpInstance.get(`${this.rootUrl}dental`);
-  }
+  // getDental() {
+  //   return this.httpInstance.get(`${this.rootUrl}dental`);
+  // }
 
   getBookingDetails(doctorId, date) {
     return this.httpInstance.get(`${this.rootUrl}booking/?doctorId=${doctorId}&bookedDate=${date}`);
