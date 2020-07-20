@@ -62,6 +62,7 @@ paths:
       tags:
         - "profile"
       summary: "add new profile"
+      operationId: "addNewProfile"
       parameters:
       - in: "body"
         name: "body"
@@ -104,6 +105,7 @@ paths:
         - "profile"
       summary: "update profile"
       description: "update profile details"
+      operationId: "updateProfile"
       parameters:
       - in: "path"
         name: "profileId"
@@ -124,6 +126,7 @@ paths:
       - "profile"
       summary: "delete profile"
       description: "to delete booking"
+      operationId: "deleteProfile"
       parameters:
       - in: "path"
         name: "profileId"
@@ -138,8 +141,9 @@ paths:
     post:
       tags:
       - "registration"
-      summary: "create user"
+      summary: "register the new user"
       description: "register the new user"
+      operationId: "AddNewRegistration"
       parameters:
       - in: "body"
         name: "body"
@@ -154,7 +158,7 @@ paths:
     get:
       tags:
       - "registration"
-      summary: "Find booking details by passing registraionId"
+      summary: "Find booking details for given doctorId and date"
       description: "Returns perticular registration details"
       operationId: "getRegistraionDetails"
       produces:
@@ -184,8 +188,9 @@ paths:
     put:
       tags:
       - "registration"
-      summary: "update user"
-      description: "update specified user"
+      summary: "update registration details"
+      description: "update registration details"
+      operationId: "UpdateRegistrationDetails"
       parameters:
       - in: "path"
         name: "registrationId"
@@ -202,18 +207,18 @@ paths:
         200:
           description: OK
   
-  /registration/:
+  /registration/role/{roleId}:
     get:
       tags:
       - "registration"
-      summary: "Find registration details by passing role"
+      summary: "Find registration details for the given roleId"
       description: "Returns a list of registration details"
-      operationId: "getAllRegistrationDetails"
+      operationId: "getAllRegistrationDetailsByRole"
       produces:
       - "application/json"
       parameters:
-      - in: "query"
-        name: "role"
+      - in: "path"
+        name: "roleId"
         description: "pass role details like Admin, Patient, Doctor"
         required: true
         type: "string"
@@ -227,18 +232,18 @@ paths:
         "404":
           description: "registration not found"
   
-  /registration/email:
+  /registration/email/{emailId}:
     get:
       tags:
       - "registration"
-      summary: "Find registration details by passing email id"
+      summary: "Find registration details for the given email id"
       description: "Returns a registration details"
-      operationId: "getSpecificProfileDetails"
+      operationId: "getSpecificRegistraionDetailsByEmail"
       produces:
       - "application/json"
       parameters:
-      - in: "query"
-        name: "role"
+      - in: "path"
+        name: "emailId"
         description: "pass email id"
         required: true
         type: "string"
@@ -285,7 +290,8 @@ paths:
       tags:
       - "booking"
       summary: "new booking" 
-      description: "book an appointment"
+      description: "book an new appointment"
+      operationId: "CreateNewBooking"
       parameters:
       - in: "body"
         name: "body"
@@ -297,12 +303,13 @@ paths:
         200:
           description: OK
   
-  /booking{bookingId}:
+  /booking/{bookingId}:
     delete:
       tags:
       - "booking"
       summary: "delete booking"
       description: "to delete booking"
+      operationId: "deleteBooking"
       parameters:
       - in: "path"
         name: "bookingId"
@@ -312,8 +319,6 @@ paths:
       responses:
         200:
           description: OK
-  
-  /booking/id:
     get:
       tags:
       - "booking"
@@ -323,7 +328,7 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - in: "query"
+      - in: "path"
         name: "bookingId"
         description: "bookingId"
         required: true
@@ -336,14 +341,15 @@ paths:
         "400":
           description: "Invalid details supplied"
         "404":
-          description: "booking details not found"
+          description: "booking details not found"  
     put:
       tags:
       - "booking"
       summary: "update booking details"
       description: "update booking details"
+      operationId: "updateBookingDetails"
       parameters:
-      - in: "query"
+      - in: "path"
         name: "bookingId"
         type: "number"
         description: "booking id to update"
@@ -356,20 +362,20 @@ paths:
           $ref: "#/definitions/booking"
       responses:
         200:
-          description: OK  
-  
-  /booking/date:
+          description: OK     
+          
+  /booking/date/{bookedDate}:
     get:
       tags:
       - "booking"
       summary: "Find booking details for specified date"
       description: "Returns booking details"
-      operationId: "getAppointmentDetails"
+      operationId: "getAppointmentDetailsByDate"
       produces:
       - "application/json"
       parameters:
-      - in: "query"
-        name: "Date"
+      - in: "path"
+        name: "bookedDate"
         description: "specified date"
         required: true
         type: "string"
@@ -382,28 +388,19 @@ paths:
           description: "Invalid details supplied"
         "404":
           description: "booking details not found"
-    
-  /contact:
-    get:
-      tags:
-        - "contact"
-      summary: "view contacts"
-      description: "get complete contact details"
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/contact"
-        "400":
-          description: "Invalid details supplied"
-        "404":
-          description: "contact details not found"
+  
+  /contact/{contactId}:
     put:
       tags:
         - "contact"
       summary: "update contact"
       description: "update contact details"
+      operationId: "updateContact"
       parameters:
+        - in: "path"
+          name: "contactId"
+          type: "number"
+          required: true
         - in: "body"
           name: "body"
           description: ""
@@ -417,11 +414,29 @@ paths:
           description: "contact details not found"
         "405":
           description: "Validation exception"
+          
+  /contact:
+    get:
+      tags:
+        - "contact"
+      summary: "view contacts"
+      description: "get all contact details"
+      operationId: "getAllContacts"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/contact"
+        "400":
+          description: "Invalid details supplied"
+        "404":
+          description: "contact details not found"
     post:
       tags:
         - "contact"
-      summary: "add contact"
+      summary: "add new contact"
       description: "add new contact details"
+      operationId: "addNewContact"
       parameters:
       - in: "body"
         name: "body"
@@ -437,6 +452,9 @@ definitions:
   profile:
     type: "object"
     properties:
+      id:
+        type: "number"
+        description: "profile Id"
       email:
         type: "string"
         description: "email Id"
@@ -454,7 +472,7 @@ definitions:
   registration:
     type: "object"
     properties:
-      registrationId:
+      id:
         type: "number"
         description: "registration Id"
       firstName:
@@ -466,12 +484,19 @@ definitions:
       sex:
         type: "string"
         description: "gender details"
+        enum: 
+        - "male"
+        - "female"
+        - "transgender"
       age:
         type: "integer"
         description: "age"
       email:
         type: "string"
         description: "email id"
+      password:
+        type: "string"
+        description: "sceret password"
       address:
         type: "string"
         description: "address details"
@@ -481,14 +506,18 @@ definitions:
       role:
         type: "string"
         description: "describe role"
+        enum: 
+        - "admin"
+        - "doctor"
+        - "patient"
   
   booking:
     type: "object"
     properties:
-      date:
+      bookedDate:
         type: "string"
         description: "booking date"
-      time:
+      bookedTime:
         type: "string"
         description: "booking time"
       doctorName:
@@ -503,10 +532,22 @@ definitions:
       patientId:
         type: "number"
         description: "patient id"
+      patientName:
+        type: "string"
+        description: "patient Name"
+      isTreatmentCompleted:
+        type: "string"
+        description: "isTreatmentCompleted"
+      prescription:
+        type: "string"
+        description: "prescription details"
         
   contact:
     type: "object"
     properties:
+      id:
+        type: "string"
+        description: "contact Id"
       name:
         type: "string"
         description: "contact name"
