@@ -584,7 +584,7 @@ definitions:
         description: "email address"
       address:
         type: "string"
-        description: "address"
+        description: "addresss"
       isBranch:
         type: "boolean"
         description: "is branch"
