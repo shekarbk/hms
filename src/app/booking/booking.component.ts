@@ -168,24 +168,6 @@ export class BookingComponent implements OnInit {
     await this.httpInstance.get(`${rootUrl}/registration?role=doctor&specialization=${selectedValue}`).toPromise().then(data => {
           result = data;
         });
-
-    // if (selectedValue == "generalPhysician") {
-    //   await this.httpInstance.get(`${rootUrl}generalPhysician`).toPromise().then(data => {
-    //     result = data;
-    //   });
-    // } else if (selectedValue == "dental") {
-    //   await this.httpInstance.get(`${rootUrl}dental`).toPromise().then(data => {
-    //     result = data;
-    //   });
-    // } else if (selectedValue == "ent") {
-    //   await this.httpInstance.get(`${rootUrl}ent`).toPromise().then(data => {
-    //     result = data;
-    //   });
-    // } else if (selectedValue == "eyeSpecialist") {
-    //   await this.httpInstance.get(`${rootUrl}eyeSpecialist`).toPromise().then(data => {
-    //     result = data;
-    //   });
-    // }
     return result;
   }
 

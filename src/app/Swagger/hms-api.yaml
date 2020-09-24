@@ -183,7 +183,32 @@ paths:
           description: "Invalid details supplied"
         "404":
           description: "booking details not found"
- 
+          
+  /registration/{regId}:
+    get:
+      tags:
+      - "registration"
+      summary: "Find registration details for the given regId"
+      description: "Returns a registration details"
+      operationId: "getRegistrationDetailsById"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "regId"
+        description: "get registration details for given registration Id"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/registration"
+        "400":
+          description: "Invalid details supplied"
+        "404":
+          description: "registration not found"
+          
   /registration{registrationId}:
     put:
       tags:
