@@ -1,0 +1,299 @@
+{
+  "profile": [
+    {
+      "id": 1,
+      "email": "chandra@gmail.com",
+      "password": "test123",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "email": "rashu@gmail.com",
+      "password": "test123",
+      "role": "patient"
+    },
+    {
+      "email": "viji@gmail.com",
+      "password": "test123",
+      "role": "patient",
+      "id": 4
+    },
+    {
+      "email": "gopal@gmail.com",
+      "password": "test123",
+      "role": "doctor",
+      "id": 5
+    },
+    {
+      "email": "srinivas@gmail.com",
+      "password": "test123",
+      "role": "doctor",
+      "id": 6
+    },
+    {
+      "email": "kumar@gmail.com",
+      "password": "test123",
+      "role": "doctor",
+      "id": 7
+    },
+    {
+      "email": "ram@gmail.com",
+      "password": "test123",
+      "role": "doctor",
+      "id": 8
+    },
+    {
+      "email": "lakshmi@gmail.com",
+      "password": "test123",
+      "role": "doctor",
+      "id": 9
+    },
+    {
+      "email": "kiran@gmail.com",
+      "password": "test123",
+      "role": "doctor",
+      "id": 10
+    },
+    {
+      "email": "mega@gmail.com",
+      "password": "test123",
+      "role": "doctor",
+      "id": 11
+    },
+    {
+      "email": "bhaskar@gmail.com",
+      "password": "test123",
+      "role": "doctor",
+      "id": 12
+    },
+    {
+      "email": "kasturi@gmail.com",
+      "password": "test123",
+      "role": "doctor",
+      "id": 13
+    }
+  ],
+  "registration": [
+    {
+      "firstName": "chandra",
+      "lastName": "bk",
+      "sex": "male",
+      "age": 29,
+      "email": "chandra@gmail.com",
+      "password": null,
+      "address": "Kcc nagar, Hosur",
+      "existingDiseases": "hands sweating.....",
+      "role": "patient",
+      "id": 1
+    },
+    {
+      "firstName": "rashu",
+      "lastName": "v",
+      "sex": "female",
+      "age": "26",
+      "email": "rashu@gmail.com",
+      "password": "test123",
+      "address": "kcc nagar, hosur",
+      "existingDiseases": "5 tooth packed",
+      "role": "patient",
+      "id": 2
+    },
+    {
+      "firstName": "vijendra",
+      "lastName": "kumar",
+      "sex": "male",
+      "age": "65",
+      "email": "viji@gmail.com",
+      "password": "test123",
+      "address": "678, Santosh complex, Kunte, Bangalore:560064",
+      "existingDiseases": "Harniya and Eye cataract corrected",
+      "role": "patient",
+      "id": 4
+    },
+    {
+      "firstName": "Gopal",
+      "lastName": "Roa",
+      "sex": "male",
+      "age": "45",
+      "email": "gopal@gmail.com",
+      "password": "test123",
+      "address": "bangalore",
+      "existingDiseases": "NA",
+      "role": "doctor",
+      "qualification": "MBBS",
+      "specialization": "generalPhysician",
+      "yearOfExp": "5",
+      "id": 5
+    },
+    {
+      "firstName": "Srinivas",
+      "lastName": "Roa",
+      "sex": "male",
+      "age": "23",
+      "email": "srinivas@gmail.com",
+      "password": "test123",
+      "address": "mysore",
+      "existingDiseases": "NA",
+      "role": "doctor",
+      "qualification": "MBBS",
+      "specialization": "generalPhysician",
+      "yearOfExp": "5",
+      "id": 6
+    },
+    {
+      "firstName": "Kumar",
+      "lastName": "srinivasan",
+      "sex": "male",
+      "age": "34",
+      "email": "kumar@gmail.com",
+      "password": "test123",
+      "address": "india",
+      "existingDiseases": "NA",
+      "role": "doctor",
+      "qualification": "MS",
+      "specialization": "ent",
+      "yearOfExp": "1",
+      "id": 7
+    },
+    {
+      "firstName": "Ram",
+      "lastName": "verma",
+      "sex": "male",
+      "age": "33",
+      "email": "ram@gmail.com",
+      "password": "test123",
+      "address": "india",
+      "existingDiseases": "NA",
+      "role": "doctor",
+      "qualification": "Dental",
+      "specialization": "ent",
+      "yearOfExp": "5",
+      "id": 8
+    },
+    {
+      "firstName": "Lakshmi",
+      "lastName": "kumar",
+      "sex": "male",
+      "age": "38",
+      "email": "lakshmi@gmail.com",
+      "password": "test123",
+      "address": "india",
+      "existingDiseases": "NA",
+      "role": "doctor",
+      "qualification": "MBBS",
+      "specialization": "eyeSpecialist",
+      "yearOfExp": "2",
+      "id": 9
+    },
+    {
+      "firstName": "Kiran",
+      "lastName": "reddy",
+      "sex": "male",
+      "age": "67",
+      "email": "kiran@gmail.com",
+      "password": "test123",
+      "address": "india",
+      "existingDiseases": "NA",
+      "role": "doctor",
+      "qualification": "MBBS",
+      "specialization": "eyeSpecialist",
+      "yearOfExp": "5",
+      "id": 10
+    },
+    {
+      "firstName": "Mega",
+      "lastName": "naidu",
+      "sex": "female",
+      "age": "21",
+      "email": "mega@gmail.com",
+      "password": "test123",
+      "address": "india",
+      "existingDiseases": "NA",
+      "role": "doctor",
+      "qualification": "MBBS",
+      "specialization": "dental",
+      "yearOfExp": "1",
+      "id": 11
+    },
+    {
+      "firstName": "Bhaskar",
+      "lastName": "reddy",
+      "sex": "male",
+      "age": "33",
+      "email": "bhaskar@gmail.com",
+      "password": "test123",
+      "address": "India",
+      "existingDiseases": "NA",
+      "role": "doctor",
+      "qualification": "Dental",
+      "specialization": "dental",
+      "yearOfExp": "5",
+      "id": 12
+    },
+    {
+      "firstName": "kasturi",
+      "lastName": "rakshitha",
+      "sex": "female",
+      "age": "27",
+      "email": "kasturi@gmail.com",
+      "password": "test123",
+      "address": "bangalore,India",
+      "existingDiseases": "NA",
+      "role": "doctor",
+      "qualification": "MBBS",
+      "specialization": "generalPhysician",
+      "yearOfExp": "1",
+      "id": 13
+    }
+  ],
+  "booking": [
+    {
+      "bookedDate": "27/06/2020",
+      "bookedTime": "10:00",
+      "doctorName": "kasturi rakshitha",
+      "doctorId": 13,
+      "treatmentType": "generalPhysician",
+      "purpose": "cold and fever",
+      "patientId": "1",
+      "patientName": "chandra bk",
+      "isTreatmentCompleted": "yes",
+      "prescription": "take crocin for 3 days 1-0-1",
+      "id": 1
+    },
+    {
+      "bookedDate": "16/07/2020",
+      "bookedTime": "11:00",
+      "doctorName": "Gopal Roa",
+      "doctorId": 5,
+      "treatmentType": "generalPhysician",
+      "purpose": "not well",
+      "patientId": "2",
+      "patientName": "rashu v",
+      "isTreatmentCompleted": "no",
+      "prescription": "",
+      "id": 2
+    }
+  ],
+  "contactUs": [
+    {
+      "id": 1,
+      "name": "chandra",
+      "phone": 9886065986,
+      "email": "chandra@gmail.com",
+      "address": "Kcc nagar, Hosur",
+      "isBranch": "no",
+      "isSubbranch": "no",
+      "isHeadOffice": "yes"
+    },
+    {
+      "id": 1,
+      "name": "rashu",
+      "phone": 9886003373,
+      "email": "rashu@gmail.com",
+      "address": "BTM, Bangalore",
+      "isBranch": "yes",
+      "isSubbranch": "no",
+      "isHeadOffice": "yes"
+    }
+  ]
+}
