@@ -99,7 +99,7 @@ paths:
         "404":
           description: "profile not found"
   
-  /profile/{profileId}:
+  /profile/{Id}:
     put:
       tags:
         - "profile"
@@ -108,7 +108,7 @@ paths:
       operationId: "updateProfile"
       parameters:
       - in: "path"
-        name: "profileId"
+        name: "Id"
         type: "number"
         description: "profile id to update"
         required: true
@@ -129,7 +129,7 @@ paths:
       operationId: "deleteProfile"
       parameters:
       - in: "path"
-        name: "profileId"
+        name: "Id"
         type: "number"
         description: "delete profile"
         required: true
@@ -184,7 +184,7 @@ paths:
         "404":
           description: "booking details not found"
           
-  /registration/{regId}:
+  /registration/{Id}:
     get:
       tags:
       - "registration"
@@ -195,7 +195,7 @@ paths:
       - "application/json"
       parameters:
       - in: "path"
-        name: "regId"
+        name: "Id"
         description: "get registration details for given registration Id"
         required: true
         type: "string"
@@ -209,7 +209,7 @@ paths:
         "404":
           description: "registration not found"
           
-  /registration{registrationId}:
+  /registration{Id}:
     put:
       tags:
       - "registration"
@@ -218,7 +218,7 @@ paths:
       operationId: "UpdateRegistrationDetails"
       parameters:
       - in: "path"
-        name: "registrationId"
+        name: "Id"
         type: "number"
         description: "registation id to update"
         required: true
@@ -232,7 +232,7 @@ paths:
         200:
           description: OK
   
-  /registration/role/{roleId}:
+  /registration/role/{Id}:
     get:
       tags:
       - "registration"
@@ -243,7 +243,7 @@ paths:
       - "application/json"
       parameters:
       - in: "path"
-        name: "roleId"
+        name: "Id"
         description: "pass role details like Admin, Patient, Doctor"
         required: true
         type: "string"
@@ -257,7 +257,7 @@ paths:
         "404":
           description: "registration not found"
   
-  /registration/email/{emailId}:
+  /registration/email/{Id}:
     get:
       tags:
       - "registration"
@@ -268,7 +268,7 @@ paths:
       - "application/json"
       parameters:
       - in: "path"
-        name: "emailId"
+        name: "Id"
         description: "pass email id"
         required: true
         type: "string"
@@ -328,7 +328,7 @@ paths:
         200:
           description: OK
   
-  /booking/{bookingId}:
+  /booking/{Id}:
     delete:
       tags:
       - "booking"
@@ -337,7 +337,7 @@ paths:
       operationId: "deleteBooking"
       parameters:
       - in: "path"
-        name: "bookingId"
+        name: "Id"
         type: "number"
         description: "cancel booking"
         required: true
@@ -354,7 +354,7 @@ paths:
       - "application/json"
       parameters:
       - in: "path"
-        name: "bookingId"
+        name: "Id"
         description: "bookingId"
         required: true
         type: "string"
@@ -375,7 +375,7 @@ paths:
       operationId: "updateBookingDetails"
       parameters:
       - in: "path"
-        name: "bookingId"
+        name: "Id"
         type: "number"
         description: "booking id to update"
         required: true
@@ -414,7 +414,7 @@ paths:
         "404":
           description: "booking details not found"
   
-  /contact/{contactId}:
+  /contact/{Id}:
     put:
       tags:
         - "contact"
@@ -423,7 +423,7 @@ paths:
       operationId: "updateContact"
       parameters:
         - in: "path"
-          name: "contactId"
+          name: "Id"
           type: "number"
           required: true
         - in: "body"
@@ -594,7 +594,4 @@ definitions:
       isHeadOffice:
         type: "boolean"
         description: "is head office"
-        
     
-      
-  
