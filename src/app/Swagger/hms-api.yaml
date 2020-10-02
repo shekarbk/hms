@@ -528,6 +528,15 @@ definitions:
       existingDiseases:
         type: "string"
         description: "describe existing diseases"
+      qualification:
+        type: "string"
+        description: "qualification details"
+      specialization:
+        type: "string"
+        description: "specialization details"
+      yearOfExp:
+        type: "string"
+        description: "year of experience"
       role:
         type: "string"
         description: "describe role"
@@ -545,6 +554,9 @@ definitions:
       bookedTime:
         type: "string"
         description: "booking time"
+      doctorId:
+        type: "number"
+        description: "doctor Id"
       doctorName:
         type: "string"
         description: "doctor name"
@@ -594,4 +606,7 @@ definitions:
       isHeadOffice:
         type: "boolean"
         description: "is head office"
+        
     
+      
+  
