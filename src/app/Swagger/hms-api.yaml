@@ -283,34 +283,6 @@ paths:
           description: "registration not found"
           
   /booking:
-    get:
-      tags:
-      - "booking"
-      summary: "Find booking details by passing doctorId, Date"
-      description: "Returns a list of appointment details"
-      operationId: "getBookingDetails"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "query"
-        name: "doctorId"
-        description: "doctorId"
-        required: true
-        type: "string"
-      - in: "query"
-        name: "Date"
-        description: "any specific date"
-        required: true
-        type: "string"
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/booking"
-        "400":
-          description: "Invalid details supplied"
-        "404":
-          description: "booking details not found"
     post:
       tags:
       - "booking"
@@ -327,7 +299,37 @@ paths:
       responses:
         200:
           description: OK
-  
+          
+  /booking/Date/{bookingDate}/doctorId/{doctorId}:
+    get:
+      tags:
+      - "booking"
+      summary: "Find booking details by passing bookingId"
+      description: "Returns booking details"
+      operationId: "getBookingDetailsByDoctorIdAndDate"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "bookingDate"
+        description: "bookingDate"
+        required: true
+        type: "string"
+      - in: "path"
+        name: "doctorId"
+        description: "doctorId"
+        required: true
+        type: "string"  
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/booking"
+        "400":
+          description: "Invalid details supplied"
+        "404":
+          description: "booking details not found"  
+          
   /booking/{Id}:
     delete:
       tags:
