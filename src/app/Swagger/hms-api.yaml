@@ -590,6 +590,9 @@ definitions:
       name:
         type: "string"
         description: "contact name"
+      countryCode:
+        type: "string"
+        description: "country code"
       phone:
         type: "number"
         description: "phone number"
