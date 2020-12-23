@@ -54,9 +54,9 @@
             <select id="select" name="select" (change)="handleSelectEvent($event.target.value)" formControlName="role"
                 class="custom-select">
                 <option value="">Role Type</option>
-                <option value="admin">Admin</option>
-                <option value="doctor">Doctor</option>
-                <option value="patient">Patient</option>
+                <option value="ADMIN">Admin</option>
+                <option value="DOCTOR">Doctor</option>
+                <option value="PATIENT">Patient</option>
             </select>
         </div>
     </div>
@@ -80,19 +80,19 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-4">Sex</label>
+        <label class="col-4">gender</label>
         <div class="col-8">
             <div class="custom-control custom-radio custom-control-inline">
-                <input formControlName="sex" id="sex_0" type="radio" class="custom-control-input" value="male">
-                <label for="sex_0" class="custom-control-label">Male</label>
+                <input formControlName="gender" id="gender_0" type="radio" class="custom-control-input" value="MALE">
+                <label for="gender_0" class="custom-control-label">Male</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
-                <input formControlName="sex" id="sex_1" type="radio" class="custom-control-input" value="female">
-                <label for="sex_1" class="custom-control-label">Female</label>
+                <input formControlName="gender" id="gender_1" type="radio" class="custom-control-input" value="FEMALE">
+                <label for="gender_1" class="custom-control-label">Female</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
-                <input formControlName="sex" id="sex_2" type="radio" class="custom-control-input" value="transgender">
-                <label for="sex_2" class="custom-control-label">Transgender</label>
+                <input formControlName="gender" id="gender_2" type="radio" class="custom-control-input" value="TRANSGENDER">
+                <label for="gender_2" class="custom-control-label">Transgender</label>
             </div>
         </div>
     </div>
@@ -128,7 +128,7 @@
                 class="form-control"></textarea>
         </div>
     </div>
-    <div *ngIf="selectedRoleType === 'doctor'">
+    <div *ngIf="selectedRoleType === 'DOCTOR'">
         <div class="form-group row">
             <label for="text3" class="col-4 col-form-label">Enter Professional Education Details</label>
             <div class="col-8">
@@ -167,7 +167,7 @@
             <button name="submit" [disabled]="disableSubmitButton" (click)="collectRegistrationData()" type="submit"
                 class="btn btn-primary">Submit</button>
             &nbsp;&nbsp;&nbsp;
-            <button name="update" [disabled]="disableUpdateButton" (click)="updateRegistration()"
+            <button type="button" name="update" [disabled]="disableUpdateButton" (click)="updateRegistration()"
                 class="btn btn-primary">Update</button>
             &nbsp;&nbsp;&nbsp;
             <button name="cancel" type="reset" class="btn btn-primary" (click)="handleCancel()">Cancel</button>

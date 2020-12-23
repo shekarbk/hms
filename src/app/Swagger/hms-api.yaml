@@ -121,22 +121,7 @@ paths:
       responses:
         200:
           description: OK
-    delete:
-      tags:
-      - "profile"
-      summary: "delete profile"
-      description: "to delete booking"
-      operationId: "deleteProfile"
-      parameters:
-      - in: "path"
-        name: "Id"
-        type: "number"
-        description: "delete profile"
-        required: true
-      responses:
-        200:
-          description: OK  
-          
+
   /registration:
     post:
       tags:
@@ -154,35 +139,22 @@ paths:
       responses:
         200:
           description: OK
-    
-    get:
+    put:
       tags:
       - "registration"
-      summary: "Find booking details for given doctorId and date"
-      description: "Returns perticular registration details"
-      operationId: "getRegistraionDetails"
-      produces:
-      - "application/json"
+      summary: "update registration details"
+      description: "update registration details"
+      operationId: "UpdateRegistrationDetails"
       parameters:
-      - in: "query"
-        name: "doctorId"
-        description: "doctorId"
+      - in: "body"
+        name: "registration"
+        description: "registation id to update"
         required: true
-        type: "string"
-      - in: "query"
-        name: "Date"
-        description: "any specific date"
-        required: true
-        type: "string"
+        schema:
+          $ref: "#/definitions/registration"
       responses:
-        "200":
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/booking"
-        "400":
-          description: "Invalid details supplied"
-        "404":
-          description: "booking details not found"
+        200:
+          description: OK
           
   /registration/{Id}:
     get:
@@ -190,7 +162,7 @@ paths:
       - "registration"
       summary: "Find registration details for the given regId"
       description: "Returns a registration details"
-      operationId: "getRegistrationDetailsById"
+      operationId: "getRegistrationDetails"
       produces:
       - "application/json"
       parameters:
@@ -208,29 +180,22 @@ paths:
           description: "Invalid details supplied"
         "404":
           description: "registration not found"
-          
-  /registration{Id}:
-    put:
+    delete:
       tags:
       - "registration"
-      summary: "update registration details"
-      description: "update registration details"
-      operationId: "UpdateRegistrationDetails"
+      summary: "delete registered profile"
+      description: "to delete booking"
+      operationId: "deleteProfile"
       parameters:
       - in: "path"
         name: "Id"
         type: "number"
-        description: "registation id to update"
+        description: "delete profile"
         required: true
-      - in: "body"
-        name: "body"
-        description: "update registration details"
-        required: true
-        schema:
-          $ref: "#/definitions/registration"
       responses:
         200:
-          description: OK
+         description: OK  
+
   
   /registration/role/{Id}:
     get:

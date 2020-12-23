@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HmsService } from '../hms.service';
+import{ GlobalConstants } from '../../app/common/global-constants';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,7 @@ export class RegisterComponent implements OnInit {
   registerHms = new FormGroup({
     firstName: new FormControl(),
     lastName: new FormControl(),
-    sex: new FormControl(),
+    gender: new FormControl(),
     age: new FormControl(),
     email: new FormControl(),
     password: new FormControl(),
@@ -61,50 +62,31 @@ export class RegisterComponent implements OnInit {
   }
 
   collectRegistrationData() {
-    // console.log(this.registerHms.value);
-    this.hmsService.saveRegistration(this.registerHms.value).subscribe((result) => {
-      // console.log(result);
-      this.generatedRegId=result['id'];
-      this.profileHms.value.email = this.registerHms.value.email;
-      this.profileHms.value.password = this.registerHms.value.password;
-      this.profileHms.value.role = this.registerHms.value.role;
-      this.createProfile();
+
+    this.hmsService.saveRegistrationAPI(this.registerHms.value).subscribe((result) => {      
+      this.generatedRegId=result['data'].registrationId;
       this.registerHms.reset({});
       this.alert = true;
     });
   }
 
-  createProfile() {
-    // console.log(this.profileHms.value);
-    this.hmsService.createProfile(this.profileHms.value).subscribe((result) => {
-      // console.log(result);
-    });
-  }
-
   searchRegId(id) {
-    this.hmsService.getRegistrationDetails(id).subscribe((result) => {
-      // console.log(result);
-      if (Object.keys(result).length != 0) {
-        // this.isRegistraionDetailsFound = false;
-        // this.disableSubmitButton = true;
-        // console.log(result);
-        // console.log(result[0]['firstName']);
-        this.regId = id;
+    this.hmsService.getRegistrationDetailsAPI(id).subscribe((result) => {
+      if(result["status"] == GlobalConstants.SUCCESS){
+        this.regId = result['data'].registrationId;
         this.registerHms = new FormGroup({
-          firstName: new FormControl(result[0]['firstName']),
-          lastName: new FormControl(result[0]['lastName']),
-          sex: new FormControl(result[0]['sex']),
-          age: new FormControl(result[0]['age']),
-          email: new FormControl(result[0]['email']),
-          password: new FormControl(result[0]['password']),
-          address: new FormControl(result[0]['address']),
-          existingDiseases: new FormControl(result[0]['existingDiseases']),
-          role: new FormControl(result[0]['role'])
+          firstName: new FormControl(result['data'].firstName),
+          lastName: new FormControl(result['data'].lastName),
+          sex: new FormControl(result['data'].gender),
+          age: new FormControl(result['data'].age),
+          email: new FormControl(result['data'].email),
+          password: new FormControl(result['data'].password),
+          address: new FormControl(result['data'].address),
+          existingDiseases: new FormControl(result['data'].existingDiseases),
+          role: new FormControl(result['data'].role)
         });
-
-      } else {
-        // this.isRegistraionDetailsFound = true;
-        // this.disableSubmitButton = false;
+      }
+    else {
         this.registerHms.reset({});
       }
     });
@@ -115,16 +97,31 @@ export class RegisterComponent implements OnInit {
   }
 
   updateRegistration() {
-    // console.log(this.registerHms.value);
-    this.hmsService.updateRegistration(this.regId, this.registerHms.value).subscribe((result) => {
-      // console.log(result);
+
+    let updateRequestData = {
+      registrationId : this.regId,
+      firstName : this.registerHms.value.firstName,
+      lastName : this.registerHms.value.lastName,
+      gender : this.registerHms.value.gender,
+      age : this.registerHms.value.age,
+      address : this.registerHms.value.address,
+      existingDiseases : this.registerHms.value.existingDiseases,
+      email : this.registerHms.value.email,
+      password : this.registerHms.value.password,
+      qualification : this.registerHms.value.qualification,
+      specialization : this.registerHms.value.specialization,
+      yearOfExp : this.registerHms.value.yearOfExp,
+      role : this.registerHms.value.role,
+    };
+
+    this.hmsService.updateRegistrationAPI(updateRequestData).subscribe((result) => {
+      console.log(result);
       this.isRegistrationUpdated = true;
       this.registerHms.reset({});
     });
   }
-
+  
   handleCancel() {
-    // console.log("cancel clicked");
     this.registerHms.reset({});
   }
 

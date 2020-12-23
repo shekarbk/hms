@@ -6,19 +6,20 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HmsService {
   rootUrl = "http://localhost:3000/";
+  rootAPIUrl = "http://localhost:8080/v1/hms/";
 
   constructor(private httpInstance: HttpClient) { }
 
   getLoginUserDetails(email, pass, role) {
     return this.httpInstance.get(`${this.rootUrl}profile?email=${email}&password=${pass}&role=${role}`);
   }
-  
-  createProfile(data) {
-    return this.httpInstance.post(this.rootUrl + "profile", data);
+
+  getLoginUserDetailsAPI(data) {
+    return this.httpInstance.post(this.rootAPIUrl+"authenticate",data);
   }
 
-  updateProfile() {
-
+  createProfile(data) {
+    return this.httpInstance.post(this.rootUrl + "profile", data);
   }
 
   deleteProfile(id) {
@@ -29,21 +30,28 @@ export class HmsService {
     return this.httpInstance.post(this.rootUrl + "registration", data);
   }
 
+  saveRegistrationAPI(data) {
+    return this.httpInstance.post(this.rootAPIUrl + "registration", data);
+  }
+
   updateRegistration(id, data) {
     return this.httpInstance.put(`${this.rootUrl}registration/${id}`, data);
+  }
+
+  updateRegistrationAPI(data) {
+    return this.httpInstance.put(`${this.rootAPIUrl}registration`, data);
   }
 
   getRegistrationDetails(id) {
     return this.httpInstance.get(`${this.rootUrl}registration/?id=${id}`);
   }
 
+  getRegistrationDetailsAPI(id) {
+    return this.httpInstance.get(`${this.rootAPIUrl}registration/${id}`);
+  }
+
   deleteRegistrationDetails(id) {
     return this.httpInstance.delete(`${this.rootUrl}registration/${id}`);
-  }
-  
-  
-  saveAppointment() {
-
   }
 
   cancelAppointment(id) {
@@ -53,22 +61,6 @@ export class HmsService {
   listAppointments() {
 
   }
-
-  // getGeneralPhysician() {
-  //   return this.httpInstance.get(`${this.rootUrl}generalPhysician`);
-  // }
-
-  // getEnt() {
-  //   return this.httpInstance.get(`${this.rootUrl}ent`);
-  // }
-
-  // getEyeSpecialist() {
-  //   return this.httpInstance.get(`${this.rootUrl}eyeSpecialist`);
-  // }
-
-  // getDental() {
-  //   return this.httpInstance.get(`${this.rootUrl}dental`);
-  // }
 
   getBookingDetails(doctorId, date) {
     return this.httpInstance.get(`${this.rootUrl}booking/?doctorId=${doctorId}&bookedDate=${date}`);
@@ -105,4 +97,9 @@ export class HmsService {
   getSpecificProfileDetails(emailId){
     return this.httpInstance.get(`${this.rootUrl}registration/?email=${emailId}`);
   }
+
+  getSpecificProfileDetailsAPI(emailId){
+    return this.httpInstance.get(`${this.rootAPIUrl}registration/email/${emailId}`);
+  }
+
 } 
