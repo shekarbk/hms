@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HmsService } from '../hms.service';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { GlobalConstants } from '../../app/common/global-constants';
 
 @Component({
   selector: 'app-booking',
@@ -32,6 +33,8 @@ export class BookingComponent implements OnInit {
   logedInUserRole;
   logedInUserId;
   setReadyOnlyFlag = false;
+  rootAPIUrl = "http://localhost:8080/v1/hms";
+  noDoctorsAvaiableFlag = false;
 
   bookingHms = new FormGroup({
     registrationId: new FormControl(),
@@ -53,24 +56,39 @@ export class BookingComponent implements OnInit {
   ngOnInit(): void {
     this.logedInUserRole = localStorage.getItem("loginedUserRole");
     this.logedInUserId = localStorage.getItem("logedInUserId");
-    if(this.logedInUserRole === 'admin'){
+    if (this.logedInUserRole === GlobalConstants.adminRole) {
       this.setReadyOnlyFlag = false;
-    } else if(this.logedInUserRole === 'patient'){
+    } else if (this.logedInUserRole === GlobalConstants.patientRole) {
       this.setReadyOnlyFlag = true;
       // console.log("regId: "+localStorage.getItem("logedInUserRegistrationId"));
       this.inputRegistrationId = localStorage.getItem("logedInUserRegistrationId");
     }
   }
 
+  // searchRegId(id) {
+  //   // console.log(this.tabletContent);
+  //   this.hmsService.getRegistrationDetails(id).subscribe((result) => {
+  //     // console.log(result);
+  //     if (Object.keys(result).length != 0) {
+  //       this.patientId = result[0]['id'];
+  //       this.patitentName = result[0]['firstName'] + " " + result[0]['lastName'];
+  //       this.existingDiseases = result[0]['existingDiseases'];
+  //     } else {
+  //       this.bookingHms.reset({});
+  //     }
+  //   });
+  // }
+
   searchRegId(id) {
     // console.log(this.tabletContent);
-    this.hmsService.getRegistrationDetails(id).subscribe((result) => {
-      // console.log(result);
-      if (Object.keys(result).length != 0) {
-        this.patientId = result[0]['id'];
-        this.patitentName = result[0]['firstName'] + " " + result[0]['lastName'];
-        this.existingDiseases = result[0]['existingDiseases'];
-      } else {
+    this.hmsService.getRegistrationDetailsAPI(id).subscribe((result) => {
+      //console.log(result);
+      if (result["status"] == GlobalConstants.SUCCESS) {
+        this.patientId = result['data'].registrationId;
+        this.patitentName = result['data'].firstName + " " + result['data'].lastName;
+        this.existingDiseases = result['data'].existingDiseases;
+      }
+      else {
         this.bookingHms.reset({});
       }
     });
@@ -78,43 +96,29 @@ export class BookingComponent implements OnInit {
 
   async handleSelectEvent1(selectedValue) {
     this.bookedTreatmentType = selectedValue;
-    let gpResult = await this.getDoctorDetails(selectedValue);
+    let gpResult = await this.getDoctorDetails(selectedValue);  
+    if (gpResult["status"] == GlobalConstants.SUCCESS) {
+      this.noDoctorsAvaiableFlag = false;
+    } else {
+      this.noDoctorsAvaiableFlag = true;
+    }
     this.tabletContent = [];
-    // console.log(this.selectedDatePicker);
     let queryDate = new Date(this.selectedDatePicker.year, (this.selectedDatePicker.month - 1), this.selectedDatePicker.day);
-    this.bookedDate = this.datePipe.transform(queryDate, 'dd/MM/yyyy');
-    // console.log(this.datePipe.transform(queryDate, 'dd/MM/yyyy'));
-    // console.log(tempDate);
-    // let day = this.selectedDatePicker.day;
-    // let month = this.selectedDatePicker.month;
-    // let year = this.selectedDatePicker.year;
-    // // console.log(day + " "+month+" "+year);
-    // var raw = new Date(year, month-1, day);
-    // var formatted =  this.datePipe.transform(raw, 'dd/MM/yyyy');
-    // console.log(formatted); 
-    // console.log(gpResult);
+    this.bookedDate = this.datePipe.transform(queryDate, 'dd-MM-yyyy');
     let completeBookingObject: object = null;
     let singleRowObject: Object = null;
     let bookingMap = new Map<number, Object>();
-    for (var num = 0; num < Object.keys(gpResult).length; num++) {
-      // var doctorId = gpResult[num]["doctorId"];
-      var doctorId = gpResult[num]["id"];
-      var doctorName = gpResult[num]["firstName"]+" "+gpResult[num]["lastName"];
-      // var queryDate = "12/04/2020";
-      // console.log("111111");
-      let rootUrl = "http://localhost:3000/";
+    for (var num = 0; num < gpResult['data'].length; num++) {
+      var doctorId = gpResult['data'][num].registrationId;
+      var doctorName = gpResult['data'][num].firstName + " " + gpResult['data'][num].lastName;
       let slot: string[];
       let completeTimeSlot: string[] = ["9:00", "10:00", "11:00", "12:00", "13:00"];
-      await this.httpInstance.get(`${rootUrl}booking/?doctorId=${doctorId}&bookedDate=${this.bookedDate}`).toPromise().then(bookingResult => {
-        // console.log(bookingResult);
-        if (Object.keys(bookingResult).length != 0) {
-          for (var i = 0; i < Object.keys(bookingResult).length; i++) {
-            var bookedTimeSlot = bookingResult[i]["bookedTime"];
+      await this.httpInstance.get(`${this.rootAPIUrl}/booking/date/${this.bookedDate}/doctorId/${doctorId}`).toPromise().then(bookingResult => {
+        if (bookingResult["status"] == GlobalConstants.SUCCESS) {
+          for (var i = 0; i < bookingResult['data'].length; i++) {
+            var bookedTimeSlot = bookingResult['data'][i].bookedTime;
             for (var j = 0; j < Object.keys(completeTimeSlot).length; j++) {
               if (bookedTimeSlot == completeTimeSlot[j]) {
-                // console.log(doctorId);
-                // console.log(bookedTimeSlot);
-                // this.removeDocument(bookedTimeSlot);
                 slot = this.removeTimeSlot(bookedTimeSlot, completeTimeSlot);
                 //console.log("doctorId " + doctorId + " removeDocument " + this.completeTimeSlot);
                 singleRowObject = {
@@ -139,19 +143,88 @@ export class BookingComponent implements OnInit {
           };
           bookingMap.set(doctorId, singleRowObject);
         }
-
-
       });
     }
     bookingMap.forEach((value: object, key: number) => {
       this.tabletContent.push(value);
     });
   }
+  // async handleSelectEvent1(selectedValue) {
+  //   this.bookedTreatmentType = selectedValue;
+  //   let gpResult = await this.getDoctorDetails(selectedValue);
+  //   this.tabletContent = [];
+  //   // console.log(this.selectedDatePicker);
+  //   let queryDate = new Date(this.selectedDatePicker.year, (this.selectedDatePicker.month - 1), this.selectedDatePicker.day);
+  //   this.bookedDate = this.datePipe.transform(queryDate, 'dd/MM/yyyy');
+  //   // console.log(this.datePipe.transform(queryDate, 'dd/MM/yyyy'));
+  //   // console.log(tempDate);
+  //   // let day = this.selectedDatePicker.day;
+  //   // let month = this.selectedDatePicker.month;
+  //   // let year = this.selectedDatePicker.year;
+  //   // // console.log(day + " "+month+" "+year);
+  //   // var raw = new Date(year, month-1, day);
+  //   // var formatted =  this.datePipe.transform(raw, 'dd/MM/yyyy');
+  //   // console.log(formatted); 
+  //   // console.log(gpResult);
+  //   let completeBookingObject: object = null;
+  //   let singleRowObject: Object = null;
+  //   let bookingMap = new Map<number, Object>();
+  //   for (var num = 0; num < Object.keys(gpResult).length; num++) {
+  //     // var doctorId = gpResult[num]["doctorId"];
+  //     var doctorId = gpResult[num]["id"];
+  //     var doctorName = gpResult[num]["firstName"]+" "+gpResult[num]["lastName"];
+  //     // var queryDate = "12/04/2020";
+  //     // console.log("111111");
+  //     let rootUrl = "http://localhost:3000/";
+  //     let slot: string[];
+  //     let completeTimeSlot: string[] = ["9:00", "10:00", "11:00", "12:00", "13:00"];
+  //     await this.httpInstance.get(`${rootUrl}booking/?doctorId=${doctorId}&bookedDate=${this.bookedDate}`).toPromise().then(bookingResult => {
+  //       // console.log(bookingResult);
+  //       if (Object.keys(bookingResult).length != 0) {
+  //         for (var i = 0; i < Object.keys(bookingResult).length; i++) {
+  //           var bookedTimeSlot = bookingResult[i]["bookedTime"];
+  //           for (var j = 0; j < Object.keys(completeTimeSlot).length; j++) {
+  //             if (bookedTimeSlot == completeTimeSlot[j]) {
+  //               // console.log(doctorId);
+  //               // console.log(bookedTimeSlot);
+  //               // this.removeDocument(bookedTimeSlot);
+  //               slot = this.removeTimeSlot(bookedTimeSlot, completeTimeSlot);
+  //               //console.log("doctorId " + doctorId + " removeDocument " + this.completeTimeSlot);
+  //               singleRowObject = {
+  //                 index: num,
+  //                 doctorId: doctorId,
+  //                 doctorName: doctorName,
+  //                 timeslot: slot != undefined ? slot : completeTimeSlot,
+  //                 status: "available"
+  //               };
+  //               bookingMap.set(doctorId, singleRowObject);
+  //             }
+  //           }
+  //         }
+  //       } else {
+  //         singleRowObject = {
+  //           index: num,
+  //           doctorId: doctorId,
+  //           doctorName: doctorName,
+  //           timeslot: completeTimeSlot,
+  //           status: "available",
+  //           treatmentFor: "",
+  //         };
+  //         bookingMap.set(doctorId, singleRowObject);
+  //       }
 
-  async getAsyncBookingDetails(doctorId, date) {
-    let rootUrl = "http://localhost:3000/";
-    return await this.httpInstance.get(`${rootUrl}booking/?doctorId=${doctorId}&bookedDate=${date}`).toPromise();
-  }
+
+  //     });
+  //   }
+  //   bookingMap.forEach((value: object, key: number) => {
+  //     this.tabletContent.push(value);
+  //   });
+  // }
+
+  // async getAsyncBookingDetails(doctorId, date) {
+  //   let rootUrl = "http://localhost:3000/";
+  //   return await this.httpInstance.get(`${rootUrl}booking/?doctorId=${doctorId}&bookedDate=${date}`).toPromise();
+  // }
 
   //remove the given element from complete list
   removeTimeSlot(givenTime, completTime) {
@@ -162,12 +235,20 @@ export class BookingComponent implements OnInit {
   }
 
 
+  // private async getDoctorDetails(selectedValue) {
+  //   let rootUrl = "http://localhost:3000";
+  //   var result: object = null;
+  //   await this.httpInstance.get(`${rootUrl}/registration?role=doctor&specialization=${selectedValue}`).toPromise().then(data => {
+  //         result = data;
+  //       });
+  //   return result;
+  // }
+
   private async getDoctorDetails(selectedValue) {
-    let rootUrl = "http://localhost:3000";
     var result: object = null;
-    await this.httpInstance.get(`${rootUrl}/registration?role=doctor&specialization=${selectedValue}`).toPromise().then(data => {
-          result = data;
-        });
+    await this.httpInstance.get(`${this.rootAPIUrl}/registration/specialization/${selectedValue}`).toPromise().then(data => {
+      result = data;
+    });
     return result;
   }
 
@@ -181,18 +262,27 @@ export class BookingComponent implements OnInit {
       purpose: this.bookedTreatmentPurpose[bookingDetails.index],
       patientId: this.inputRegistrationId,
       patientName: this.patitentName,
-      isTreatmentCompleted: "no",
+      isTreatmentCompleted: "NOT_COMPLETED",
       prescription: ""
     };
     // this.setBookingDetails(bookingObject);
     // console.log(bookingObject);
 
-    this.hmsService.saveBookingDetails(bookingObject).subscribe((result) => {
+    //   this.hmsService.saveBookingDetails(bookingObject).subscribe((result) => {
+    //     // console.log(result);
+    //     // console.log(result['bookedTime']);
+    //     // this.router.navigate(['bookingSummary', { state: { bookingId: '100' } }]);
+    //     this.router.navigate(['bookingSummary', {bookingId: result['id'] }]);
+    //   });
+
+    this.hmsService.saveBookingDetailsAPI(bookingObject).subscribe((result) => {
       // console.log(result);
       // console.log(result['bookedTime']);
       // this.router.navigate(['bookingSummary', { state: { bookingId: '100' } }]);
-      this.router.navigate(['bookingSummary', {bookingId: result['id'] }]);
+      this.router.navigate(['bookingSummary', { bookingId: result['data'].bookingId }]);
     });
+
+
   }
 
 }

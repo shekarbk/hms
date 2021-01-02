@@ -23,23 +23,35 @@ export class DoctorsReportComponent implements OnInit {
   }
 
   getDoctorsDetails() {
-    this.hmsService.getAllProfileDetails("doctor").subscribe((result) => {
-      // console.log(result);
-      this.doctorProfileDetails = result;
+    this.hmsService.getAllRegistrationDetailsByRoleAPI(GlobalConstants.doctorRole).subscribe((result) => {
+      if(result["status"] === GlobalConstants.SUCCESS){
+        this.doctorProfileDetails = result['data'];
+      } else {
+        this.doctorProfileDetails = null;
+      }      
     });
   }
 
   deleteProfile(id) {
     // console.log('delete profile for : ' + id);
-    this.hmsService.deleteRegistrationDetails(id).subscribe((result) => {
+    this.hmsService.deleteRegistrationDetailsAPI(id).subscribe((result) => {
       // console.log(result);
-      this.hmsService.deleteProfile(id).subscribe((result_Profile) => {
-        // console.log(result_Profile);
-        this.getDoctorsDetails();
-        this.isRegistraionDeleted = true;
-      });
+      this.getDoctorsDetails();
+      this.isRegistraionDeleted = true;
     });
   }
+
+  // deleteProfile(id) {
+  //   // console.log('delete profile for : ' + id);
+  //   this.hmsService.deleteRegistrationDetails(id).subscribe((result) => {
+  //     // console.log(result);
+  //     this.hmsService.deleteProfile(id).subscribe((result_Profile) => {
+  //       // console.log(result_Profile);
+  //       this.getDoctorsDetails();
+  //       this.isRegistraionDeleted = true;
+  //     });
+  //   });
+  // }
 
   closeAlert(){
     this.alert = true;

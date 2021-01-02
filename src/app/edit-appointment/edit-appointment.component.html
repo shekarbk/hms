@@ -60,13 +60,13 @@
 
 <div class="form-group row">
     <label class="col-4">Is Treatment Done?</label>
-    <label for="text1" class="col-1 col-form-label" (click)="collectTreatmentDonetFlag('yes')">
-        <input type="radio" value="yes" name="treatmentDonetFlag" [ngModel]="treatmentDonetFlagForRadio">
+    <label for="text1" class="col-1 col-form-label" (click)="collectTreatmentDonetFlag('COMPLETED')">
+        <input type="radio" value="COMPLETED" name="treatmentDonetFlag" [ngModel]="treatmentDonetFlagForRadio">
         &nbsp;<span>Yes</span>
     </label>
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <label for="text1" class="col-1 col-form-label" (click)="collectTreatmentDonetFlag('no')">
-        <input type="radio" value="no" name="treatmentDonetFlag" [ngModel]="treatmentDonetFlagForRadio">
+    <label for="text1" class="col-1 col-form-label" (click)="collectTreatmentDonetFlag('NOT_COMPLETED')">
+        <input type="radio" value="NOT_COMPLETED" name="treatmentDonetFlag" [ngModel]="treatmentDonetFlagForRadio">
         &nbsp;<span>No</span>
     </label>
 </div>

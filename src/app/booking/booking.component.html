@@ -57,12 +57,15 @@
         <div class="col-8">
             <select id="select" name="select" (change)="handleSelectEvent1($event.target.value)" class="custom-select">
                 <option value="">select</option>
-                <option value="generalPhysician">General Physician</option>
-                <option value="dental">Dental</option>
-                <option value="ent">ENT</option>
-                <option value="eyeSpecialist">Eye Specialist</option>
+                <option value="PHYSICIAN">General Physician</option>
+                <option value="DENTAL">Dental</option>
+                <option value="ENT">ENT</option>
+                <option value="EYE_SPECIALIST">Eye Specialist</option>
             </select>
         </div>
+    </div>
+    <div *ngIf="noDoctorsAvaiableFlag ===true">
+        <p class="mb-0" style="font-size:20px;color:red;">No Registered doctors Available yet...</p>
     </div>
     <div>
         <table class="table table-bordered">

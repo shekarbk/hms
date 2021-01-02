@@ -15,9 +15,9 @@ export class BookingHistoryComponent implements OnInit {
   }
 
   getBookingDetails(){
-    this.hmsService.getAllBookingDetails().subscribe((result)=>{
+    this.hmsService.getAllBookingDetailsAPI().subscribe((result)=>{
       // console.log(result);
-      this.bookingDetails = result;
+      this.bookingDetails = result['data'];
     });
   }
 }

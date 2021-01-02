@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { HmsService } from '../hms.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import{ GlobalConstants } from '../../app/common/global-constants';
 
 @Component({
   selector: 'app-edit-registration',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-registration.component.css']
 })
 export class EditRegistrationComponent implements OnInit {
-
+  selectedRoleType;
   isRegistrationUpdated = false;
   loginedUserRole;
   alert = false;
@@ -37,15 +38,38 @@ export class EditRegistrationComponent implements OnInit {
   }
 
   handleCancel() {
-    if (this.loginedUserRole === "patient") {
+    if (this.loginedUserRole === GlobalConstants.patientRole) {
       this.router.navigate(['patientsReport']);
-    } else if (this.loginedUserRole === "doctor") {
+    } else if (this.loginedUserRole === GlobalConstants.doctorRole) {
       this.router.navigate(['doctorsReport']);
     }
   }
 
+  // updateRegistration() {
+  //   this.hmsService.updateRegistration(this.activatedRouter.snapshot.params.id, this.registerHms.value).subscribe((result) => {
+  //     // console.log(result);
+  //     this.isRegistrationUpdated = true;
+  //   });
+  // }
+
   updateRegistration() {
-    this.hmsService.updateRegistration(this.activatedRouter.snapshot.params.id, this.registerHms.value).subscribe((result) => {
+    let updateRequestData = {
+      registrationId : this.activatedRouter.snapshot.params.id,
+      firstName : this.registerHms.value.firstName,
+      lastName : this.registerHms.value.lastName,
+      gender : this.registerHms.value.gender,
+      age : this.registerHms.value.age,
+      address : this.registerHms.value.address,
+      existingDiseases : this.registerHms.value.existingDiseases,
+      email : this.registerHms.value.email,
+      password : this.registerHms.value.password,
+      qualification : this.registerHms.value.qualification,
+      specialization : this.registerHms.value.specialization,
+      yearOfExp : this.registerHms.value.yearOfExp,
+      role : this.registerHms.value.role,
+    };
+
+    this.hmsService.updateRegistrationAPI(updateRequestData).subscribe((result) => {
       // console.log(result);
       this.isRegistrationUpdated = true;
     });
@@ -55,20 +79,47 @@ export class EditRegistrationComponent implements OnInit {
     this.alert = false;
   }
 
+  // searchRegId(id) {
+  //   this.hmsService.getRegistrationDetails(id).subscribe((result) => {
+  //     // console.log(result);
+  //     this.registerHms = new FormGroup({
+  //       firstName: new FormControl(result[0]['firstName']),
+  //       lastName: new FormControl(result[0]['lastName']),
+  //       sex: new FormControl(result[0]['sex']),
+  //       age: new FormControl(result[0]['age']),
+  //       email: new FormControl(result[0]['email']),
+  //       password: new FormControl(result[0]['password']),
+  //       address: new FormControl(result[0]['address']),
+  //       existingDiseases: new FormControl(result[0]['existingDiseases']),
+  //       role: new FormControl(result[0]['role'])
+  //     });
+  //   });
+  // }
+
   searchRegId(id) {
-    this.hmsService.getRegistrationDetails(id).subscribe((result) => {
+    this.hmsService.getRegistrationDetailsAPI(id).subscribe((result) => {
       // console.log(result);
-      this.registerHms = new FormGroup({
-        firstName: new FormControl(result[0]['firstName']),
-        lastName: new FormControl(result[0]['lastName']),
-        sex: new FormControl(result[0]['sex']),
-        age: new FormControl(result[0]['age']),
-        email: new FormControl(result[0]['email']),
-        password: new FormControl(result[0]['password']),
-        address: new FormControl(result[0]['address']),
-        existingDiseases: new FormControl(result[0]['existingDiseases']),
-        role: new FormControl(result[0]['role'])
+     this.registerHms = new FormGroup({
+         firstName: new FormControl(result['data'].firstName),
+         lastName: new FormControl(result['data'].lastName),
+         sex: new FormControl(result['data'].gender),
+         age: new FormControl(result['data'].age),
+         email: new FormControl(result['data'].email),
+         password: new FormControl(result['data'].password),
+         address: new FormControl(result['data'].address),
+         existingDiseases: new FormControl(result['data'].existingDiseases),
+         role: new FormControl(result['data'].role),
+         qualification : new FormControl(result['data'].qualification),
+         specialization : new FormControl(result['data'].specialization),
+         yearOfExp : new FormControl(result['data'].yearOfExp)
       });
+      this.selectedRoleType = result['data'].role;
     });
   }
+
+  handleSelectEvent(selectedValue){
+    this.selectedRoleType = selectedValue;
+  }
+
+
 }

@@ -272,6 +272,19 @@
       "isTreatmentCompleted": "no",
       "prescription": "",
       "id": 2
+    },
+    {
+      "bookedDate": "29/09/2020",
+      "bookedTime": "10:00",
+      "doctorName": "Gopal Roa",
+      "doctorId": 5,
+      "treatmentType": "generalPhysician",
+      "purpose": "general checkup",
+      "patientId": "1",
+      "patientName": "chandra bk",
+      "isTreatmentCompleted": "no",
+      "prescription": "",
+      "id": 3
     }
   ],
   "contactUs": [

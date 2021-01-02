@@ -25,43 +25,10 @@ schemes:
 - "http"
 paths:
   /profile:
-    get:
-      tags:
-      - "profile"
-      summary: "Find profile details by passing emailId,password,role"
-      description: "Returns a single profile"
-      operationId: "getProfile"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "query"
-        name: "email"
-        description: "profile email"
-        required: true
-        type: "string"
-      - in: "query"
-        name: "password"
-        description: "profile password"
-        required: true
-        type: "string"
-      - in: "query"
-        name: "role"
-        description: "profile role"
-        required: true
-        type: "string"
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/profile"
-        "400":
-          description: "Invalid details supplied"
-        "404":
-          description: "profile not found"
     post:
       tags:
         - "profile"
-      summary: "add new profile"
+      summary: "add new profile - DELETE THIS API"
       operationId: "addNewProfile"
       parameters:
       - in: "body"
@@ -73,37 +40,13 @@ paths:
       responses:
         200:
           description: OK
-    
-  /profile/:
-    get:
-      tags:
-      - "profile"
-      summary: "Find profile details by passing role"
-      description: "Returns a list of profile"
-      operationId: "getAllProfileDetails"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "query"
-        name: "role"
-        description: "pass role details like Admin, Patient, Doctor"
-        required: true
-        type: "string"
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/profile"
-        "400":
-          description: "Invalid details supplied"
-        "404":
-          description: "profile not found"
+  
   
   /profile/{Id}:
     put:
       tags:
         - "profile"
-      summary: "update profile"
+      summary: "update profile - DELETE THIS API"
       description: "update profile details"
       operationId: "updateProfile"
       parameters:
@@ -121,7 +64,25 @@ paths:
       responses:
         200:
           description: OK
-
+  
+  /authenticate:
+    post:
+      tags:
+      - "profile"
+      summary: "validate the user"
+      description: "validation"
+      operationId: "authenticateUser"
+      parameters:
+      - in: "body"
+        name: "profile"
+        description: "profile information"
+        required: true
+        schema:
+          $ref: "#/definitions/profile"
+      responses:
+        200:
+          description: OK  
+          
   /registration:
     post:
       tags:
@@ -247,6 +208,31 @@ paths:
         "404":
           description: "registration not found"
           
+  /registration/specialization/{specialization}:
+    get:
+      tags:
+      - "registration"
+      summary: "Find registration details for the given email id"
+      description: "Returns list of specialization profile details"
+      operationId: "getSpecializationList"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "specialization"
+        description: "pass specialization string"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/registration"
+        "400":
+          description: "Invalid details supplied"
+        "404":
+          description: "registration not found"
+          
   /booking:
     post:
       tags:
@@ -265,7 +251,7 @@ paths:
         200:
           description: OK
           
-  /booking/Date/{bookingDate}/doctorId/{doctorId}:
+  /booking/date/{bookingDate}/doctorId/{doctorId}:
     get:
       tags:
       - "booking"

@@ -18,7 +18,7 @@ export class ViewAppointmentsComponent implements OnInit {
 
   ngOnInit(): void {
     let queryDate = new Date();
-    let formattedQueryDate = this.datePipe.transform(queryDate, 'dd/MM/yyyy');
+    let formattedQueryDate = this.datePipe.transform(queryDate, 'dd-MM-yyyy');
     this.getAppointmentDetails(formattedQueryDate);
   }
 
@@ -29,18 +29,25 @@ export class ViewAppointmentsComponent implements OnInit {
     } else {
       queryDate = new Date(this.selectedDatePicker.year, (this.selectedDatePicker.month - 1), this.selectedDatePicker.day);
     }
-    let formattedQueryDate = this.datePipe.transform(queryDate, 'dd/MM/yyyy');
+    let formattedQueryDate = this.datePipe.transform(queryDate, 'dd-MM-yyyy');
     this.getAppointmentDetails(formattedQueryDate);
   }
 
+  // getAppointmentDetails(queryDate) {
+  //   this.hmsService.getAppointmentDetails(queryDate).subscribe((result) => {
+  //     this.appointmentDetails = result;
+  //   });
+  // }
+
   getAppointmentDetails(queryDate) {
-    this.hmsService.getAppointmentDetails(queryDate).subscribe((result) => {
-      this.appointmentDetails = result;
+    this.hmsService.getAppointmentDetailsAPI(queryDate).subscribe((result) => {
+      console.log(result);
+      this.appointmentDetails = result['data'];
     });
   }
 
   cancelAppointment(bookingId){
-    this.hmsService.cancelAppointment(bookingId).subscribe((result)=>{
+    this.hmsService.cancelAppointmentAPI(bookingId).subscribe((result)=>{
       // console.log(result);
       this.alert = true;
       this.showDetails();

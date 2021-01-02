@@ -33,10 +33,10 @@
             </thead>
             <tbody>
                 <tr *ngFor="let x of doctorProfileDetails;">
-                    <td>{{x.id}}</td>
+                    <td>{{x.registrationId}}</td>
                     <td>{{x.firstName}}</td>
                     <td>{{x.lastName}}</td>
-                    <td>{{x.sex}}</td>
+                    <td>{{x.gender}}</td>
                     <td>{{x.age}}</td>
                     <td>{{x.email}}</td>
                     <td>{{x.address}}</td>
@@ -45,9 +45,9 @@
                     <td>{{x.specialization}}</td>
                     <td>{{x.yearOfExp}}</td>
                     <div *ngIf="loginedUserRole === adminRoleType">
-                        <td class="col-sm-2"><i (click)="deleteProfile(x.id)" class="fa fa-trash"
+                        <td class="col-sm-2"><i (click)="deleteProfile(x.registrationId)" class="fa fa-trash"
                                 style="font-size:20px;color:red;"></i>
-                            &nbsp;&nbsp;&nbsp;<i routerLink="/editRegistration/{{x.id}}" class="fa fa-edit"
+                            &nbsp;&nbsp;&nbsp;<i routerLink="/editRegistration/{{x.registrationId}}" class="fa fa-edit"
                                 style="font-size:20px;color:green;"></i></td>
                     </div>
                 </tr>

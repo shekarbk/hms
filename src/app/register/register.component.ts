@@ -133,8 +133,7 @@ export class RegisterComponent implements OnInit {
       console.log("patient selected");
     } else if(selectedValue==='admin'){
       console.log("Admin selected");
-    }
-    
+    }    
   }
 }
 

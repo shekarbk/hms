@@ -54,8 +54,16 @@ export class HmsService {
     return this.httpInstance.delete(`${this.rootUrl}registration/${id}`);
   }
 
+  deleteRegistrationDetailsAPI(id) {
+    return this.httpInstance.delete(`${this.rootAPIUrl}registration/${id}`);
+  }
+
   cancelAppointment(id) {
     return this.httpInstance.delete(`${this.rootUrl}booking/${id}`);
+  }
+
+  cancelAppointmentAPI(id) {
+    return this.httpInstance.delete(`${this.rootAPIUrl}booking/${id}`);
   }
 
   listAppointments() {
@@ -74,24 +82,48 @@ export class HmsService {
     return this.httpInstance.post(this.rootUrl + "booking", data);
   }
 
+  saveBookingDetailsAPI(data) {
+    return this.httpInstance.post(this.rootAPIUrl + "booking", data);
+  }
+
   getBookingSummaryDetails(id) {
     return this.httpInstance.get(`${this.rootUrl}booking/?id=${id}`);
+  }
+
+  getBookingSummaryDetailsAPI(id) {
+    return this.httpInstance.get(`${this.rootAPIUrl}booking/${id}`);
   }
 
   getAppointmentDetails(queryDate) {
     return this.httpInstance.get(`${this.rootUrl}booking/?bookedDate=${queryDate}`);
   }
 
+  getAppointmentDetailsAPI(queryDate) {
+    return this.httpInstance.get(`${this.rootAPIUrl}booking/date/${queryDate}`);
+  }
+
   updatebookingDetails(id, data) {
     return this.httpInstance.put(`${this.rootUrl}booking/${id}`, data);
+  }
+
+  updatebookingDetailsAPI(data) {
+    return this.httpInstance.put(`${this.rootAPIUrl}booking`, data);
   }
 
   getAllBookingDetails() {
     return this.httpInstance.get(`${this.rootUrl}booking`);
   }
 
-  getAllProfileDetails(role) {
-    return this.httpInstance.get(`${this.rootUrl}registration/?role=${role}`);
+  getAllBookingDetailsAPI() {
+    return this.httpInstance.get(`${this.rootAPIUrl}booking/`);
+  }
+
+   getAllProfileDetails(role) {
+     return this.httpInstance.get(`${this.rootUrl}registration/?role=${role}`);
+   }
+
+  getAllRegistrationDetailsByRoleAPI(role) {
+    return this.httpInstance.get(`${this.rootAPIUrl}registration/role/${role}`);
   }
 
   getSpecificProfileDetails(emailId){

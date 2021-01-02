@@ -27,21 +27,38 @@ export class BookingSummaryComponent implements OnInit {
     let bookingId = this.activatedRoute.snapshot.paramMap.get('bookingId')
     // console.log(bookingId)
 
-    this.hmsService.getBookingSummaryDetails(bookingId).subscribe((result) => {
+    // this.hmsService.getBookingSummaryDetails(bookingId).subscribe((result) => {
+    //   // console.log(result);
+    //   // this.bookingSummaryDetails = result;
+    //   // console.log(this.bookingSummaryDetails);
+    //   // console.log(this.bookingSummaryDetails[0].bookedTime);
+      
+    //   this.bookedId=result[0].bookingId;
+    //   this.bookedDate=result[0].bookedDate;
+    //   this.bookedTime = result[0].bookedTime;
+    //   this.doctorName=result[0].doctorName;
+    //   this.treatmentType=result[0].treatmentType;
+    //   this.purpose=result[0].purpose;
+    //   this.patientId=result[0].patientId;
+    //   this.doctorId=result[0].doctorId;
+    // });
+
+    this.hmsService.getBookingSummaryDetailsAPI(bookingId).subscribe((result) => {
       // console.log(result);
       // this.bookingSummaryDetails = result;
       // console.log(this.bookingSummaryDetails);
       // console.log(this.bookingSummaryDetails[0].bookedTime);
       
-      this.bookedId=result[0].id;
-      this.bookedDate=result[0].bookedDate;
-      this.bookedTime = result[0].bookedTime;
-      this.doctorName=result[0].doctorName;
-      this.treatmentType=result[0].treatmentType;
-      this.purpose=result[0].purpose;
-      this.patientId=result[0].patientId;
-      this.doctorId=result[0].doctorId;
+      this.bookedId=result['data'].bookingId;
+      this.bookedDate=result['data'].bookedDate;
+      this.bookedTime = result['data'].bookedTime;
+      this.doctorName=result['data'].doctorName;
+      this.treatmentType=result['data'].treatmentType;
+      this.purpose=result['data'].purpose;
+      this.patientId=result['data'].patientId;
+      this.doctorId=result['data'].doctorId;
     });
+
   }
 
 }
