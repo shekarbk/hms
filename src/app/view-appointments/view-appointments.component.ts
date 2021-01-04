@@ -13,10 +13,12 @@ export class ViewAppointmentsComponent implements OnInit {
   selectedDatePicker;
   appointmentDetails;
   alert: boolean = false;
-
+  logedInUserRole;
+  
   constructor(private hmsService: HmsService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
+    this.logedInUserRole = localStorage.getItem("loginedUserRole");
     let queryDate = new Date();
     let formattedQueryDate = this.datePipe.transform(queryDate, 'dd-MM-yyyy');
     this.getAppointmentDetails(formattedQueryDate);
@@ -40,8 +42,7 @@ export class ViewAppointmentsComponent implements OnInit {
   // }
 
   getAppointmentDetails(queryDate) {
-    this.hmsService.getAppointmentDetailsAPI(queryDate).subscribe((result) => {
-      console.log(result);
+    this.hmsService.getAppointmentDetailsAPI(queryDate).subscribe((result) => {      
       this.appointmentDetails = result['data'];
     });
   }

@@ -24,7 +24,7 @@
     </div>
 
     <div *ngIf="alert" class="alert alert-heading alert-dismissible fade show" role="alert">
-        <strong>Success!</strong> Booking removed successfully.
+        <strong>WARNING!</strong> Booking removed successfully.
         <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -52,14 +52,21 @@
                     <td>{{x.treatmentType}}</td>
                     <td>{{x.purpose}}</td>
                     <td>
-                        <div *ngIf="x.isTreatmentCompleted==='NOT_COMPLETED' else elseBlock">
+                        <div *ngIf="logedInUserRole==='ADMIN' || logedInUserRole==='DOCTOR'">
+
+                            <div *ngIf="x.isTreatmentCompleted==='NOT_COMPLETED' else elseBlock">
+                                <i (click)="cancelAppointment(x.bookingId)" class="fa fa-trash"
+                                    style="font-size:20px;color:red;"></i>
+                                &nbsp;&nbsp;&nbsp;<i routerLink="/editAppointment/{{x.bookingId}}" class="fa fa-edit"
+                                    style="font-size:20px;color:green;"></i>
+                            </div>
+                            <ng-template #elseBlock>Treatement Completed</ng-template>
+
+                        </div>
+                        <div *ngIf="logedInUserRole==='PATIENT'">
                             <i (click)="cancelAppointment(x.bookingId)" class="fa fa-trash"
                                 style="font-size:20px;color:red;"></i>
-                            &nbsp;&nbsp;&nbsp;<i routerLink="/editAppointment/{{x.bookingId}}" class="fa fa-edit"
-                                style="font-size:20px;color:green;"></i>
                         </div>
-                        <ng-template #elseBlock>Treatement Completed</ng-template>
-
                     </td>
                 </tr>
             </tbody>

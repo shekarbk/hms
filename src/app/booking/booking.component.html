@@ -1,7 +1,11 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <form>
+    <div *ngIf="errorInfoFlag === true else elseBlock">
+        <strong style="font-size:20px;color:red;">Missing mandatory Information</strong>
+    </div>
+    <ng-template #elseBlock></ng-template>
+    
     <p class="h2 mb-4 text-center">Book Appointment</p>
     <div class="form-group row">
         <label for="text" class="col-4 col-form-label">Select Date</label>
@@ -29,7 +33,8 @@
                         <i class="fa fa-address-card"></i>
                     </div>
                 </div>
-                <input id="text" name="text" type="text" [readonly]="setReadyOnlyFlag" placeholder="Patient Id" class="form-control" [(ngModel)]="inputRegistrationId">
+                <input id="text" name="text" type="text" [readonly]="setReadyOnlyFlag" placeholder="Patient Id"
+                    class="form-control" [(ngModel)]="inputRegistrationId">
                 <button class="btn btn-info" (click)="searchRegId(inputRegistrationId)">Search</button>
             </div>
         </div>
@@ -89,8 +94,10 @@
                         </select>
                     </td>
                     <td>{{x.status}}</td>
-                    <td><textarea id="textarea" name="textarea" cols="40" rows="5" class="form-control" [(ngModel)]="bookedTreatmentPurpose[x.index]"></textarea></td>
-                    <td><button name="submit" type="submit" class="btn btn-primary" (click)="bookingSlot(x)">Book</button></td>
+                    <td><textarea id="textarea" name="textarea" cols="40" rows="5" class="form-control"
+                            [(ngModel)]="bookedTreatmentPurpose[x.index]"></textarea></td>
+                    <td><button name="submit" type="submit" class="btn btn-primary"
+                            (click)="bookingSlot(x)">Book</button></td>
                 </tr>
             </tbody>
         </table>

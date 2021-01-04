@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("logedInUserId",this.loginHms.value.email);
 
         this.hmsService.getSpecificProfileDetailsAPI(this.loginHms.value.email).subscribe((rst) => {
-          localStorage.setItem("logedInUserRegistrationId",rst["data"].registrationId);
+          localStorage.setItem("logedInUserRegistrationId",rst["data"][0].registrationId);
         });
 
         if (loginRequestData.role == GlobalConstants.adminRole) {
