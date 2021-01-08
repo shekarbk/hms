@@ -134,4 +134,7 @@ export class HmsService {
     return this.httpInstance.get(`${this.rootAPIUrl}registration/email/${emailId}`);
   }
 
+  getHealthCheckAPI(){
+    return this.httpInstance.get('${this.rootAPIUrl}healthcheck/ping');
+  }
 } 

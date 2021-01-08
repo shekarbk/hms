@@ -4,6 +4,12 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
+
+<div *ngIf="errorInfoFlag === true else elseBlock">
+    <strong style="font-size:20px;color:red;">backend server is down, please try after sometime...!!!</strong>
+</div>
+<ng-template #elseBlock></ng-template>
+
 <form [formGroup]="loginHms" class="border border-light p-5" (ngSubmit)="collectLogin()">
     <div [ngStyle]="{backgroundImage:'url(./assets/images/dr_appointment.jpg)'}">
         <p class="h2 mb-4 text-center">Welcome to Hospital Managment System</p>

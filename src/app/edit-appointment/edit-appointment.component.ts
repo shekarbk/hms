@@ -28,30 +28,10 @@ export class EditAppointmentComponent implements OnInit {
   });
 
   disableUpdateButton = false;
-  constructor(private fb: FormBuilder, private activatedRouter: ActivatedRoute,private router: Router, private hmsService: HmsService) { }
+  constructor(private fb: FormBuilder, private activatedRouter: ActivatedRoute, private router: Router, private hmsService: HmsService) { }
 
   ngOnInit(): void {
-    // this.treatmentDonetFlag="yes";
-
-    // this.hmsService.getBookingSummaryDetails(this.activatedRouter.snapshot.params.id).subscribe((result) => {
-    //   // console.log(result);
-    //   this.editBooking = new FormGroup({
-    //     bookedDate: new FormControl(result[0]['bookedDate']),
-    //     bookedTime: new FormControl(result[0]['bookedTime']),
-    //     doctorName: new FormControl(result[0]['doctorName']),
-    //     doctorId: new FormControl(result[0]['doctorId']),
-    //     treatmentType: new FormControl(result[0]['treatmentType']),
-    //     purpose: new FormControl(result[0]['purpose']),
-    //     patientId: new FormControl(result[0]['patientId']),
-    //     patientName: new FormControl(result[0]['patientName']),
-    //     prescription: new FormControl(result[0]['prescription']),
-    //   });
-    //   this.treatmentDonetFlagForRadio = result[0]['isTreatmentCompleted'];
-    //   // console.log(result[0]['isTreatmentCompleted']);
-    // });
-
     this.hmsService.getBookingSummaryDetailsAPI(this.activatedRouter.snapshot.params.id).subscribe((result) => {
-      // console.log(result);
       this.editBooking = new FormGroup({
         bookedDate: new FormControl(result['data'].bookedDate),
         bookedTime: new FormControl(result['data'].bookedTime),
@@ -64,20 +44,10 @@ export class EditAppointmentComponent implements OnInit {
         prescription: new FormControl(result['data'].prescription),
       });
       this.treatmentDonetFlagForRadio = result['data'].isTreatmentCompleted;
-      // console.log(result[0]['isTreatmentCompleted']);
     });
   }
 
   collectEditedBookingDetails() {
-    // console.log(this.editBooking.value);
-    // console.log(this.treatmentDonetFlagForRadio);
-    // console.log(this.editBooking.value['bookedDate']);
-
-    // if(this.treatmentDonetFlagForRadio == 'yes'){
-    //   this.treatmentDonetFlagForRadio = 'COMPLETED';
-    // } else {
-    //   this.treatmentDonetFlagForRadio = 'NOT_COMPLETED';
-    // }
     let updatedBookingObject = {
       bookedDate: this.editBooking.value['bookedDate'],
       bookedTime: this.editBooking.value['bookedTime'],
@@ -92,13 +62,7 @@ export class EditAppointmentComponent implements OnInit {
       bookingId: this.activatedRouter.snapshot.params.id
     };
 
-    // this.hmsService.updatebookingDetails(this.activatedRouter.snapshot.params.id, updatedBookingObject).subscribe((result) => {
-    //   // console.log(result);
-    //   this.alert = true;
-    // });
-
     this.hmsService.updatebookingDetailsAPI(updatedBookingObject).subscribe((result) => {
-      // console.log(result);
       this.alert = true;
     });
 
@@ -109,11 +73,10 @@ export class EditAppointmentComponent implements OnInit {
   }
 
   handleCancel() {
-    // console.log("cancel clicked");
     this.router.navigate(['viewAppointment']); //navigate to view appointment page
   }
 
-  collectTreatmentDonetFlag(flag) {  
+  collectTreatmentDonetFlag(flag) {
     this.treatmentDonetFlagForRadio = flag;
   }
 

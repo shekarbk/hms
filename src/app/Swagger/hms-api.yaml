@@ -20,6 +20,8 @@ tags:
   description: "For new booking"
 - name: "contact"
   description: "Access to contact details"
+- name: "healthCheck"
+  description: "health of the system"
 schemes:
 - "https"
 - "http"
@@ -366,6 +368,23 @@ paths:
           description: "Invalid details supplied"
         "404":
           description: "booking details not found"
+          
+  /booking/:
+    get:
+      tags:
+      - "booking"
+      summary: "getAllAppointmentDetails"
+      description: "Returns booking details"
+      operationId: "getAllAppointmentDetails"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/booking"
+        "404":
+          description: "booking details not found"  
   
   /contact/{Id}:
     put:
@@ -425,7 +444,26 @@ paths:
       responses:
         200:
           description: OK
-    
+  
+  /healthcheck/ping:
+    get:
+      tags:
+      - "healthCheck"
+      summary: "backend system health check"
+      description: "health check"
+      operationId: "ping"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/healthcheck"
+        "400":
+          description: "Invalid details supplied"
+        "404":
+          description: "backend system down"
+          
 definitions:
   profile:
     type: "object"
@@ -563,6 +601,12 @@ definitions:
         type: "boolean"
         description: "is head office"
         
+  healthcheck:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        description: "status information"
     
       
   

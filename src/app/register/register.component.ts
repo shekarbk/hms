@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HmsService } from '../hms.service';
-import{ GlobalConstants } from '../../app/common/global-constants';
+import { GlobalConstants } from '../../app/common/global-constants';
 
 @Component({
   selector: 'app-register',
@@ -63,8 +63,8 @@ export class RegisterComponent implements OnInit {
 
   collectRegistrationData() {
 
-    this.hmsService.saveRegistrationAPI(this.registerHms.value).subscribe((result) => {      
-      this.generatedRegId=result['data'].registrationId;
+    this.hmsService.saveRegistrationAPI(this.registerHms.value).subscribe((result) => {
+      this.generatedRegId = result['data'].registrationId;
       this.registerHms.reset({});
       this.alert = true;
     });
@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
 
   searchRegId(id) {
     this.hmsService.getRegistrationDetailsAPI(id).subscribe((result) => {
-      if(result["status"] == GlobalConstants.SUCCESS){
+      if (result["status"] == GlobalConstants.SUCCESS) {
         this.regId = result['data'].registrationId;
         this.registerHms = new FormGroup({
           firstName: new FormControl(result['data'].firstName),
@@ -86,7 +86,7 @@ export class RegisterComponent implements OnInit {
           role: new FormControl(result['data'].role)
         });
       }
-    else {
+      else {
         this.registerHms.reset({});
       }
     });
@@ -99,19 +99,19 @@ export class RegisterComponent implements OnInit {
   updateRegistration() {
 
     let updateRequestData = {
-      registrationId : this.regId,
-      firstName : this.registerHms.value.firstName,
-      lastName : this.registerHms.value.lastName,
-      gender : this.registerHms.value.gender,
-      age : this.registerHms.value.age,
-      address : this.registerHms.value.address,
-      existingDiseases : this.registerHms.value.existingDiseases,
-      email : this.registerHms.value.email,
-      password : this.registerHms.value.password,
-      qualification : this.registerHms.value.qualification,
-      specialization : this.registerHms.value.specialization,
-      yearOfExp : this.registerHms.value.yearOfExp,
-      role : this.registerHms.value.role,
+      registrationId: this.regId,
+      firstName: this.registerHms.value.firstName,
+      lastName: this.registerHms.value.lastName,
+      gender: this.registerHms.value.gender,
+      age: this.registerHms.value.age,
+      address: this.registerHms.value.address,
+      existingDiseases: this.registerHms.value.existingDiseases,
+      email: this.registerHms.value.email,
+      password: this.registerHms.value.password,
+      qualification: this.registerHms.value.qualification,
+      specialization: this.registerHms.value.specialization,
+      yearOfExp: this.registerHms.value.yearOfExp,
+      role: this.registerHms.value.role,
     };
 
     this.hmsService.updateRegistrationAPI(updateRequestData).subscribe((result) => {
@@ -120,20 +120,20 @@ export class RegisterComponent implements OnInit {
       this.registerHms.reset({});
     });
   }
-  
+
   handleCancel() {
     this.registerHms.reset({});
   }
 
-  handleSelectEvent(selectedValue){
+  handleSelectEvent(selectedValue) {
     this.selectedRoleType = selectedValue;
-    if(selectedValue==='doctor'){
+    if (selectedValue === 'doctor') {
       console.log("doctor selected");
-    } else if(selectedValue==='patient'){
+    } else if (selectedValue === 'patient') {
       console.log("patient selected");
-    } else if(selectedValue==='admin'){
+    } else if (selectedValue === 'admin') {
       console.log("Admin selected");
-    }    
+    }
   }
 }
 

@@ -45,33 +45,6 @@ export class PatientsReportComponent implements OnInit {
 
   }
 
-  // getPatientDetails() {
-  //   if(this.logedInUserRole === 'admin'){
-  //     this.hmsService.getAllProfileDetails("patient").subscribe((result) => {
-  //       // console.log(result);
-  //       this.patientProfileDetails = result;
-  //     });
-  //   } else if(this.logedInUserRole === 'patient'){
-  //     this.hmsService.getSpecificProfileDetails(this.logedInUserId).subscribe((result) => {
-  //       // console.log(result);
-  //       this.patientProfileDetails = result;
-  //     });
-  //   }
-
-  // }
-
-  // deleteProfile(id) {
-  //   // console.log('delete profile for : ' + id);
-  //   this.hmsService.deleteRegistrationDetails(id).subscribe((result) => {
-  //     // console.log(result);
-  //     this.hmsService.deleteProfile(id).subscribe((result_Profile) => {
-  //       // console.log(result_Profile);
-  //       this.getPatientDetails();
-  //       this.isRegistraionDeleted = true;
-  //     });
-  //   });
-  // }
-
   deleteProfile(id) {
     this.hmsService.deleteRegistrationDetailsAPI(id).subscribe((result) => {
       this.getPatientDetails();
