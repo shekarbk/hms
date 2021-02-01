@@ -10,16 +10,18 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
   let httpMock: HttpTestingController;
   let httpClient: HttpClient;
+  let appInstance: AppComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule,RouterTestingModule],
-      declarations: [LoginComponent,AppComponent],
-      providers:[]
+      declarations: [LoginComponent],
+      providers:[AppComponent]
     })
     .compileComponents();
     httpMock = TestBed.inject(HttpTestingController);
     httpClient = TestBed.inject(HttpClient);
+    appInstance = TestBed.inject(AppComponent);
   }));
 
   beforeEach(() => {

@@ -14,13 +14,14 @@ export class ViewAppointmentsComponent implements OnInit {
   appointmentDetails;
   alert: boolean = false;
   logedInUserRole;
-  
-  constructor(private hmsService: HmsService, private datePipe: DatePipe) { }
+
+  constructor(private hmsService: HmsService) { }
 
   ngOnInit(): void {
     this.logedInUserRole = localStorage.getItem("loginedUserRole");
     let queryDate = new Date();
-    let formattedQueryDate = this.datePipe.transform(queryDate, 'dd-MM-yyyy');
+    let datePipe = new DatePipe('en-US');
+    let formattedQueryDate = datePipe.transform(queryDate, 'dd-MM-yyyy');
     this.getAppointmentDetails(formattedQueryDate);
   }
 
@@ -31,7 +32,8 @@ export class ViewAppointmentsComponent implements OnInit {
     } else {
       queryDate = new Date(this.selectedDatePicker.year, (this.selectedDatePicker.month - 1), this.selectedDatePicker.day);
     }
-    let formattedQueryDate = this.datePipe.transform(queryDate, 'dd-MM-yyyy');
+    let datePipe = new DatePipe('en-US');
+    let formattedQueryDate = datePipe.transform(queryDate, 'dd-MM-yyyy');
     this.getAppointmentDetails(formattedQueryDate);
   }
 

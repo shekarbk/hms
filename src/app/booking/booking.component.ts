@@ -55,7 +55,7 @@ export class BookingComponent implements OnInit {
     existingDiseases: new FormControl(),
     role: new FormControl()
   });
-  constructor(private router: Router, private datePipe: DatePipe, private hmsService: HmsService, private httpInstance: HttpClient) {
+  constructor(private router: Router, private hmsService: HmsService, private httpInstance: HttpClient) {
 
   }
 
@@ -106,7 +106,8 @@ export class BookingComponent implements OnInit {
   async appointmentBooking(gpResult) {
     this.tabletContent = [];
     let queryDate = new Date(this.selectedDatePicker.year, (this.selectedDatePicker.month - 1), this.selectedDatePicker.day);
-    this.bookedDate = this.datePipe.transform(queryDate, 'dd-MM-yyyy');
+    let datePipe = new DatePipe('en-US');
+    this.bookedDate = datePipe.transform(queryDate, 'dd-MM-yyyy');
     let completeBookingObject: object = null;
     let singleRowObject: Object = null;
     let bookingMap = new Map<number, Object>();
