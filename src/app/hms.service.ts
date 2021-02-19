@@ -15,8 +15,15 @@ export class HmsService {
   }
 
   getLoginUserDetailsAPI(data) {
-    return this.httpInstance.post(this.rootAPIUrl+"authenticate",data);
+    return this.httpInstance.post(this.rootAPIUrl + "authenticate", data);
   }
+
+  getLoginUserDetailsAPIFunction(data) {    
+    this.httpInstance.post(this.rootAPIUrl + "authenticate", data).subscribe((result) => {
+      return result;
+    });
+  }
+
 
   createProfile(data) {
     return this.httpInstance.post(this.rootUrl + "profile", data);
@@ -118,23 +125,35 @@ export class HmsService {
     return this.httpInstance.get(`${this.rootAPIUrl}booking/`);
   }
 
-   getAllProfileDetails(role) {
-     return this.httpInstance.get(`${this.rootUrl}registration/?role=${role}`);
-   }
+  getAllProfileDetails(role) {
+    return this.httpInstance.get(`${this.rootUrl}registration/?role=${role}`);
+  }
 
   getAllRegistrationDetailsByRoleAPI(role) {
     return this.httpInstance.get(`${this.rootAPIUrl}registration/role/${role}`);
   }
 
-  getSpecificProfileDetails(emailId){
+  getSpecificProfileDetails(emailId) {
     return this.httpInstance.get(`${this.rootUrl}registration/?email=${emailId}`);
   }
 
-  getSpecificProfileDetailsAPI(emailId){
+  getSpecificProfileDetailsAPI(emailId) {
     return this.httpInstance.get(`${this.rootAPIUrl}registration/email/${emailId}`);
   }
 
-  getHealthCheckAPI(){ 
+  getHealthCheckAPI() {
     return this.httpInstance.get(`${this.rootAPIUrl}healthcheck/ping`);
   }
+
+  getHealthCheckAPIFunction() {
+    let errorInfoFlag = false;
+    this.httpInstance.get(`${this.rootAPIUrl}healthcheck/ping`).subscribe((result) => {
+      errorInfoFlag = false;
+    },
+      error => {
+        errorInfoFlag = true;
+      });
+    return errorInfoFlag;
+  }
+
 } 

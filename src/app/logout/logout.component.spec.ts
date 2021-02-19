@@ -22,4 +22,9 @@ describe('LogoutComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('clearSession',()=>{
+    component.clearSession();
+    expect('').toEqual(localStorage.getItem('loginedUserRole'));
+  })
 });

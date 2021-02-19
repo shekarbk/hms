@@ -42,7 +42,6 @@ export class PatientsReportComponent implements OnInit {
         }
       });
     }
-
   }
 
   deleteProfile(id) {

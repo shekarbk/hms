@@ -12,7 +12,7 @@ import { GlobalConstants } from '../../app/common/global-constants';
 export class RegisterComponent implements OnInit {
   selectedRoleType;
   isExistingPatient = false;
-  regId: String = "";
+  regId: number = 0;
   alert: boolean = false;
   isRegistraionDetailsFound: boolean = false;
   isRegistrationUpdated: boolean = false;
@@ -62,7 +62,6 @@ export class RegisterComponent implements OnInit {
   }
 
   collectRegistrationData() {
-
     this.hmsService.saveRegistrationAPI(this.registerHms.value).subscribe((result) => {
       this.generatedRegId = result['data'].registrationId;
       this.registerHms.reset({});

@@ -13,7 +13,7 @@ import { GlobalConstants } from '../../app/common/global-constants';
 export class LoginComponent implements OnInit {
   isLoginSuccess: boolean = false;
   alert: boolean = false;
-  errorInfoFlag : boolean = false;
+  errorInfoFlag: boolean = false;
 
   loginHms = new FormGroup({
     email: new FormControl(),
@@ -27,9 +27,9 @@ export class LoginComponent implements OnInit {
     this.hmsService.getHealthCheckAPI().subscribe((result) => {
       this.errorInfoFlag = false;
     },
-    error =>{      
-      this.errorInfoFlag = true;
-    });
+      error => {
+        this.errorInfoFlag = true;
+      });
   }
 
   collectLogin() {
@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
       password: this.loginHms.value.password,
       role: this.loginHms.value.loginType
     };
-
     this.hmsService.getLoginUserDetailsAPI(loginRequestData).subscribe((result) => {
       if (result["status"] == GlobalConstants.SUCCESS) {
         this.isLoginSuccess = true;
@@ -52,20 +51,12 @@ export class LoginComponent implements OnInit {
         this.hmsService.getSpecificProfileDetailsAPI(this.loginHms.value.email).subscribe((rst) => {
           localStorage.setItem("logedInUserRegistrationId", rst["data"][0].registrationId);
         });
-
-        if (loginRequestData.role == GlobalConstants.adminRole) {
+        if (loginRequestData.role == (GlobalConstants.adminRole || GlobalConstants.doctorRole || GlobalConstants.patientRole)) {
           this.router.navigate(['viewAppointment']); //navigate to view appointment page
           this.appInstance.isNavEnable = "enabled";
           this.appInstance.isRegistrationTabEnable = "enabled";
-        } else if (loginRequestData.role == GlobalConstants.doctorRole) {
-          this.appInstance.isNavEnable = "enabled";
-          this.appInstance.isRegistrationTabEnable = "disabled";
-          this.router.navigate(['viewAppointment']); //navigate to view appointment page
-        } else if (loginRequestData.role == GlobalConstants.patientRole) {
-          this.appInstance.isNavEnable = "enabled";
-          this.appInstance.isRegistrationTabEnable = "disabled";
-          this.router.navigate(['viewAppointment']); //navigate to view appointment page
-        } else {
+        }
+        else {
           this.alert = true;
         }
       } else {
