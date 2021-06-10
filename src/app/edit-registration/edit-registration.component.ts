@@ -13,7 +13,7 @@ import { GlobalConstants } from '../../app/common/global-constants';
 export class EditRegistrationComponent implements OnInit {
   selectedRoleType;
   isRegistrationUpdated = false;
-  loginedUserRole;
+  loginedUserRole:any;
   alert = false;
   registerHms = new FormGroup({
     firstName: new FormControl(),

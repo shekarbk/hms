@@ -114,7 +114,6 @@ export class RegisterComponent implements OnInit {
     };
 
     this.hmsService.updateRegistrationAPI(updateRequestData).subscribe((result) => {
-      console.log(result);
       this.isRegistrationUpdated = true;
       this.registerHms.reset({});
     });
@@ -126,13 +125,6 @@ export class RegisterComponent implements OnInit {
 
   handleSelectEvent(selectedValue) {
     this.selectedRoleType = selectedValue;
-    if (selectedValue === 'doctor') {
-      console.log("doctor selected");
-    } else if (selectedValue === 'patient') {
-      console.log("patient selected");
-    } else if (selectedValue === 'admin') {
-      console.log("Admin selected");
-    }
   }
 }
 

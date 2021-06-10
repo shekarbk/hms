@@ -62,7 +62,7 @@ describe('RegisterComponent', () => {
     expect(component.generatedRegId).not.toEqual(0);
   });
 
-  it('searchRegId with success',()=>{
+  it('searchRegId with success', () => {
     const apiResponse =
     {
       "status": "success",
@@ -88,7 +88,7 @@ describe('RegisterComponent', () => {
     expect(6).toEqual(component.regId);
   });
 
-  it('searchRegId with failed',()=>{
+  it('searchRegId with failed', () => {
     const apiResponse =
     {
       "status": "failed",
@@ -98,5 +98,32 @@ describe('RegisterComponent', () => {
     spyOn(hmsService, 'getRegistrationDetailsAPI').and.returnValue(of(apiResponse));
     component.searchRegId(jasmine.any(Number));
     expect(0).toEqual(component.regId);
+  });
+
+  it('updateRegistration', () => {
+    const apiResponse =
+    {
+      "status": "success",
+      "message": "details saved successfully !!!",
+      "data": null
+    }
+    spyOn(hmsService, 'updateRegistrationAPI').and.returnValue(of(apiResponse));
+    component.updateRegistration();
+    expect(true).toEqual(component.isRegistrationUpdated);
+  });
+
+  it('handleCancel', () => {
+    component.handleCancel();
+    expect(null).toEqual(component.registerHms.value.firstName);
+  });
+
+  it('handleSelectEvent', () => {
+    component.handleSelectEvent('doctor');
+    expect('doctor').toEqual(component.selectedRoleType);
+  });
+
+  it('OnInit', () => {
+    component.ngOnInit();
+    expect(false).toEqual(component.disableSubmitButton);
   });
 });

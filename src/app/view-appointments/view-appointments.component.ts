@@ -37,29 +37,18 @@ export class ViewAppointmentsComponent implements OnInit {
     this.getAppointmentDetails(formattedQueryDate);
   }
 
-  // getAppointmentDetails(queryDate) {
-  //   this.hmsService.getAppointmentDetails(queryDate).subscribe((result) => {
-  //     this.appointmentDetails = result;
-  //   });
-  // }
-
-  getAppointmentDetails(queryDate) {
-    this.hmsService.getAppointmentDetailsAPI(queryDate).subscribe((result) => {      
+  private getAppointmentDetails(queryDate) {
+    this.hmsService.getAppointmentDetailsAPI(queryDate).subscribe((result) => {
       this.appointmentDetails = result['data'];
     });
   }
 
-  cancelAppointment(bookingId){
-    this.hmsService.cancelAppointmentAPI(bookingId).subscribe((result)=>{
-      // console.log(result);
+  cancelAppointment(bookingId) {
+    this.hmsService.cancelAppointmentAPI(bookingId).subscribe((result) => {
       this.alert = true;
       this.showDetails();
     });
   }
-
-  // updateBookingDetails(bookingId){
-  //   console.log("updating booking details");
-  // }
 
   closeAlert() {
     this.alert = false;
