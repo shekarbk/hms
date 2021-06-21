@@ -39,7 +39,6 @@ export class BookingComponent implements OnInit {
   logedInUserRole;
   logedInUserId;
   setReadyOnlyFlag = false;
-  rootAPIUrl = "http://localhost:8080/v1/hms";
   noDoctorsAvaiableFlag = false;
   errorInfoFlag = false;
 
@@ -116,7 +115,7 @@ export class BookingComponent implements OnInit {
       var doctorName = gpResult['data'][num].firstName + " " + gpResult['data'][num].lastName;
       let slot: string[];
       let completeTimeSlot: string[] = ["9:00", "10:00", "11:00", "12:00", "13:00"];
-      await this.httpInstance.get(`${this.rootAPIUrl}/booking/date/${this.bookedDate}/doctorId/${doctorId}`).toPromise().then(bookingResult => {
+      await this.httpInstance.get(`${GlobalConstants.rootAPIUrl}booking/date/${this.bookedDate}/doctorId/${doctorId}`).toPromise().then(bookingResult => {
         if (bookingResult["status"] == GlobalConstants.SUCCESS) {
           for (var i = 0; i < bookingResult['data'].length; i++) {
             var bookedTimeSlot = bookingResult['data'][i].bookedTime;
@@ -164,7 +163,7 @@ export class BookingComponent implements OnInit {
 
   private async getDoctorDetails(selectedValue) {
     var result: object = null;
-    await this.httpInstance.get(`${this.rootAPIUrl}/registration/specialization/${selectedValue}`).toPromise().then(data => {
+    await this.httpInstance.get(`${GlobalConstants.rootAPIUrl}registration/specialization/${selectedValue}`).toPromise().then(data => {
       result = data;
     });
     return result;

@@ -5,4 +5,5 @@ export class GlobalConstants {
     public static patientRole: string = "PATIENT";
     public static doctorRole: string = "DOCTOR";
     public static SUCCESS: string = "success";
+    public static rootAPIUrl = "http://localhost:8090/v1/hms/";
 }

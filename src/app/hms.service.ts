@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { GlobalConstants } from '../app/common/global-constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HmsService {
-  rootUrl = "http://localhost:3000/";
-  rootAPIUrl = "http://localhost:8080/v1/hms/";
+  rootUrl = "http://localhost:3000/"; //NOTE: used for json server
+  //rootAPIUrl = "http://localhost:8090/v1/hms/"; //NOTE: moved to global constants
 
   constructor(private httpInstance: HttpClient) { }
 
@@ -15,11 +16,11 @@ export class HmsService {
   }
 
   getLoginUserDetailsAPI(data) {
-    return this.httpInstance.post(this.rootAPIUrl + "authenticate", data);
+    return this.httpInstance.post(GlobalConstants.rootAPIUrl + "authenticate", data);
   }
 
   getLoginUserDetailsAPIFunction(data) {    
-    this.httpInstance.post(this.rootAPIUrl + "authenticate", data).subscribe((result) => {
+    this.httpInstance.post(GlobalConstants.rootAPIUrl + "authenticate", data).subscribe((result) => {
       return result;
     });
   }
@@ -38,7 +39,7 @@ export class HmsService {
   }
 
   saveRegistrationAPI(data) {
-    return this.httpInstance.post(this.rootAPIUrl + "registration", data);
+    return this.httpInstance.post(GlobalConstants.rootAPIUrl + "registration", data);
   }
 
   updateRegistration(id, data) {
@@ -46,7 +47,7 @@ export class HmsService {
   }
 
   updateRegistrationAPI(data) {
-    return this.httpInstance.put(`${this.rootAPIUrl}registration`, data);
+    return this.httpInstance.put(`${GlobalConstants.rootAPIUrl}registration`, data);
   }
 
   getRegistrationDetails(id) {
@@ -54,7 +55,7 @@ export class HmsService {
   }
 
   getRegistrationDetailsAPI(id) {
-    return this.httpInstance.get(`${this.rootAPIUrl}registration/${id}`);
+    return this.httpInstance.get(`${GlobalConstants.rootAPIUrl}registration/${id}`);
   }
 
   deleteRegistrationDetails(id) {
@@ -62,7 +63,7 @@ export class HmsService {
   }
 
   deleteRegistrationDetailsAPI(id) {
-    return this.httpInstance.delete(`${this.rootAPIUrl}registration/${id}`);
+    return this.httpInstance.delete(`${GlobalConstants.rootAPIUrl}registration/${id}`);
   }
 
   cancelAppointment(id) {
@@ -70,7 +71,7 @@ export class HmsService {
   }
 
   cancelAppointmentAPI(id) {
-    return this.httpInstance.delete(`${this.rootAPIUrl}booking/${id}`);
+    return this.httpInstance.delete(`${GlobalConstants.rootAPIUrl}booking/${id}`);
   }
 
   listAppointments() {
@@ -90,7 +91,7 @@ export class HmsService {
   }
 
   saveBookingDetailsAPI(data) {
-    return this.httpInstance.post(this.rootAPIUrl + "booking", data);
+    return this.httpInstance.post(GlobalConstants.rootAPIUrl + "booking", data);
   }
 
   getBookingSummaryDetails(id) {
@@ -98,7 +99,7 @@ export class HmsService {
   }
 
   getBookingSummaryDetailsAPI(id) {
-    return this.httpInstance.get(`${this.rootAPIUrl}booking/${id}`);
+    return this.httpInstance.get(`${GlobalConstants.rootAPIUrl}booking/${id}`);
   }
 
   getAppointmentDetails(queryDate) {
@@ -106,7 +107,7 @@ export class HmsService {
   }
 
   getAppointmentDetailsAPI(queryDate) {
-    return this.httpInstance.get(`${this.rootAPIUrl}booking/date/${queryDate}`);
+    return this.httpInstance.get(`${GlobalConstants.rootAPIUrl}booking/date/${queryDate}`);
   }
 
   updatebookingDetails(id, data) {
@@ -114,7 +115,7 @@ export class HmsService {
   }
 
   updatebookingDetailsAPI(data) {
-    return this.httpInstance.put(`${this.rootAPIUrl}booking`, data);
+    return this.httpInstance.put(`${GlobalConstants.rootAPIUrl}booking`, data);
   }
 
   getAllBookingDetails() {
@@ -122,7 +123,7 @@ export class HmsService {
   }
 
   getAllBookingDetailsAPI() {
-    return this.httpInstance.get(`${this.rootAPIUrl}booking/`);
+    return this.httpInstance.get(`${GlobalConstants.rootAPIUrl}booking/`);
   }
 
   getAllProfileDetails(role) {
@@ -130,7 +131,7 @@ export class HmsService {
   }
 
   getAllRegistrationDetailsByRoleAPI(role) {
-    return this.httpInstance.get(`${this.rootAPIUrl}registration/role/${role}`);
+    return this.httpInstance.get(`${GlobalConstants.rootAPIUrl}registration/role/${role}`);
   }
 
   getSpecificProfileDetails(emailId) {
@@ -138,16 +139,16 @@ export class HmsService {
   }
 
   getSpecificProfileDetailsAPI(emailId) {
-    return this.httpInstance.get(`${this.rootAPIUrl}registration/email/${emailId}`);
+    return this.httpInstance.get(`${GlobalConstants.rootAPIUrl}registration/email/${emailId}`);
   }
 
   getHealthCheckAPI() {
-    return this.httpInstance.get(`${this.rootAPIUrl}healthcheck/ping`);
+    return this.httpInstance.get(`${GlobalConstants.rootAPIUrl}healthcheck/ping`);
   }
 
   getHealthCheckAPIFunction() {
     let errorInfoFlag = false;
-    this.httpInstance.get(`${this.rootAPIUrl}healthcheck/ping`).subscribe((result) => {
+    this.httpInstance.get(`${GlobalConstants.rootAPIUrl}healthcheck/ping`).subscribe((result) => {
       errorInfoFlag = false;
     },
       error => {
